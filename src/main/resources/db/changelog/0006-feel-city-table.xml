@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+<changeSet id="insert-russian-regional-capitals" author="your-name">
+    <comment>Добавление областных центров России в таблицу cities</comment>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Москва"/>
+        <column name="region" value="Московская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Санкт-Петербург"/>
+        <column name="region" value="Ленинградская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Новосибирск"/>
+        <column name="region" value="Новосибирская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Екатеринбург"/>
+        <column name="region" value="Свердловская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Нижний Новгород"/>
+        <column name="region" value="Нижегородская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Казань"/>
+        <column name="region" value="Республика Татарстан"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Челябинск"/>
+        <column name="region" value="Челябинская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Омск"/>
+        <column name="region" value="Омская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Самара"/>
+        <column name="region" value="Самарская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Ростов-на-Дону"/>
+        <column name="region" value="Ростовская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Уфа"/>
+        <column name="region" value="Республика Башкортостан"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Красноярск"/>
+        <column name="region" value="Красноярский край"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Воронеж"/>
+        <column name="region" value="Воронежская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Пермь"/>
+        <column name="region" value="Пермский край"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Волгоград"/>
+        <column name="region" value="Волгоградская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Краснодар"/>
+        <column name="region" value="Краснодарский край"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Саратов"/>
+        <column name="region" value="Саратовская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Тюмень"/>
+        <column name="region" value="Тюменская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Тольятти"/>
+        <column name="region" value="Самарская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Ижевск"/>
+        <column name="region" value="Удмуртская Республика"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Барнаул"/>
+        <column name="region" value="Алтайский край"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Иркутск"/>
+        <column name="region" value="Иркутская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Ульяновск"/>
+        <column name="region" value="Ульяновская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Хабаровск"/>
+        <column name="region" value="Хабаровский край"/>
+        <column name="country" value="RU"/>
+    </insert>
+
+    <insert tableName="cities">
+        <column name="city_name" value="Ярославль"/>
+        <column name="region" value="Ярославская область"/>
+        <column name="country" value="RU"/>
+    </insert>
+</changeSet>
+</databaseChangeLog>

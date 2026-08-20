@@ -1,0 +1,377 @@
+:root {
+    --primary-bg: #ffdfc4;
+    --bg-light: #ffe5d0;
+    --accent: #d94530;
+    --accent-hover: #8c2e21;
+    --border: #cfa88f;
+    --text-main: #2b2b2b;
+    --text-secondary: #495057;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+}
+
+.card, .registration-form {
+    background-color: #ffffff; /* не ставь основной цвет как фон карточек — будет слишком «плотно» */
+    border: 1px solid var(--border);
+}
+
+.btn-primary {
+    background-color: var(--accent)!important;
+    border-color: var(--accent)!important;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover)!important;
+    border-color: var(--accent-hover)!important;
+}
+
+/* Для чата: свои сообщения — акцентным цветом */
+.message-mine {
+    background-color: var(--primary-bg);
+    border-radius: 8px;
+}
+
+/** Карточка постов в профиле **/
+.post-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(207, 168, 143, 0.15); /* лёгкая тень под цвет палитры */
+    color: var(--text-main);
+    margin-top: 1rem;
+}
+
+.post-card .d-flex.align-items-center {
+    margin-bottom: 1rem;
+}
+
+.post-card h5 {
+    color: var(--text-main);
+    margin-bottom: 0.25rem;
+}
+
+.post-card small.text-muted {
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem;
+}
+
+.post-card hr {
+    border-top: 1px solid #eee;
+    margin: 1.25rem 0;
+    border-radius: 4px;
+}
+
+.post-card p.lead {
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+}
+
+/* Мета-блок с кнопками-ссылками */
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* разделитель между группами кнопок */
+    padding-top: 0.75rem;
+    border-top: 1px solid #f5f5f5;
+}
+
+.post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* отступ между отдельными кнопками */
+}
+
+/* Кнопки в стиле «ссылки»: жирный текст, без фона, с разделителями */
+.btn-icon {
+    background: none;
+    border: none;
+    padding: 0.375rem 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-icon:hover {
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.btn-icon i {
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
+}
+
+/* Кнопка «Удалить» — акцентная */
+.btn-icon.text-danger {
+    color: var(--accent) !important;
+}
+
+.btn-icon.text-danger:hover {
+    color: var(--accent-hover) !important;
+}
+
+/* pagination */
+.custom-pagination {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.custom-pagination .page-item {
+    list-style: none;
+}
+
+.custom-pagination .page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    background-color: #ffffff;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+}
+
+/* Наведение на ссылки */
+.custom-pagination .page-link:hover:not(.disabled) {
+    background-color: var(--bg-light);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Активная страница */
+.custom-pagination .page-item.active .page-link,
+.custom-pagination .page-item.active .page-link.current-page {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(217, 69, 48, 0.3);
+}
+
+/* Disabled состояние */
+.custom-pagination .page-item.disabled .page-link {
+    background-color: transparent;
+    border-color: #e0e0e0;
+    color: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Адаптив: на мобильных уменьшаем отступы и размеры */
+@media (max-width: 576px) {
+    .custom-pagination {
+        gap: 0.25rem;
+    }
+    .custom-pagination .page-link {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+}
+
+/* dashboard */
+
+/* Общие стили карточек дашборда */
+.dashboard-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(207, 168, 143, 0.12);
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 4px 12px rgba(207, 168, 143, 0.18);
+}
+
+/* Сайдбар: навигация */
+.sidebar-nav .nav-link {
+    color: var(--text-secondary);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: var(--bg-light);
+    color: var(--accent);
+}
+
+.sidebar-nav .nav-link.active {
+    background-color: var(--primary-bg);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* Статистические карточки */
+.stat-card {
+    border-radius: 0.75rem;
+}
+
+/* Таблица: кастомные полоски (чтобы не конфликтовало с Bootstrap) */
+.table-striped-custom tbody tr:nth-of-type(odd) {
+    background-color: rgba(239, 239, 241, 0.3);
+}
+
+.table-striped-custom thead th {
+    border-bottom: 1px solid var(--border);
+}
+
+.table-striped-custom td,
+.table-striped-custom th {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+/* Бейджи статусов */
+.badge {
+    font-size: 0.825rem;
+}
+
+/* Адаптив: на мобильных уменьшаем отступы */
+@media (max-width: 768px) {
+    .dashboard-card {
+        border-radius: 0.5rem;
+        box-shadow: none;
+        border: 1px solid #e9ecef;
+    }
+
+    .stat-card {
+        height: auto !important;
+    }
+
+    .sidebar-nav .nav-link {
+        padding: 0.5rem 0.6rem;
+    }
+}
+
+/* breadcrumbs */
+
+.custom-breadcrumb {
+    background-color: transparent;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+.custom-breadcrumb .breadcrumb-item {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.custom-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--border);
+    content: "/";
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+.custom-breadcrumb a.hover-accent:hover {
+    color: var(--accent) !important;
+    text-decoration: underline;
+}
+
+.custom-breadcrumb .breadcrumb-item.active {
+    color: var(--text-main) !important;
+}
+
+/** edit profile **/
+.form-control-sm {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-select-sm {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Акцент на кнопке сохранения */
+.btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* Тонкая линия-разделитель */
+hr.my-4.border-0 {
+    margin: 1.5rem 0;
+}
+
+/* filters */
+.filter-collapsible .filter-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    /* Отступ делаем здесь, а не у каждого form-check */
+    padding: 8px 0;
+}
+
+.filter-collapsible.collapsed .filter-content {
+    max-height: 0;
+}
+
+.filter-collapsible:not(.collapsed) .filter-content {
+    max-height: 800px;
+}
+
+/* Градиент-затуманивание */
+.filter-collapsible {
+    position: relative;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    overflow: hidden; /* Важно: чтобы контент не вылезал за границы при анимации */
+}
+
+.filter-collapsible::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.toggle-link {
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.toggle-link:hover {
+    text-decoration: underline;
+}
+
+.filter-selected-summary {
+    display: none;
+}
+
+.filter-collapsible.collapsed .filter-selected-summary {
+    display: block;
+}

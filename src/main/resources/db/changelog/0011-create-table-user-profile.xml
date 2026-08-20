@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="add_user_profiles_table" author="thaidatemate">
+        <createTable tableName="user_profiles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="about_me" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="birth_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="education" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <!-- Связь с основной таблицей users -->
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_profile_user"
+                            referencedTableName="users" referencedColumnNames="id" unique="true"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

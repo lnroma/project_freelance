@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="0001-create-wallet-table.xml" relativeToChangelogFile="true"/>
+    <include file="0002-update-wallet-table-add-created-at.xml" relativeToChangelogFile="true"/>
+    <include file="0003-create-user-tablex.xml" relativeToChangelogFile="true"/>
+    <include file="0004-create-city-table.xml" relativeToChangelogFile="true"/>
+    <include file="0005-create-table-orders.xml" relativeToChangelogFile="true"/>
+    <include file="0006-feel-city-table.xml" relativeToChangelogFile="true"/>
+    <include file="0007-create-offers-table.xml" relativeToChangelogFile="true"/>
+    <include file="0009-create-table-categories.xml" relativeToChangelogFile="true"/>
+
+    <include file="0010-create-table-posts.xml" relativeToChangelogFile="true"/>
+    <include file="0011-create-table-user-profile.xml" relativeToChangelogFile="true"/>
+    <include file="0012-create-table-user-expirience.xml" relativeToChangelogFile="true"/>
+    <include file="0013-create-table-user-galleries.xml" relativeToChangelogFile="true"/>
+    <include file="0016-add-new-column.xml" relativeToChangelogFile="true"/>
+    <include file="0017-add-new-profiles.xml" relativeToChangelogFile="true"/>
+    <include file="0018-add-seo-pages.xml" relativeToChangelogFile="true"/>
+    <include file="0020-feel-category.xml" relativeToChangelogFile="true"/>
+
+    <!-- Здесь можно добавлять другие миграции -->
+</databaseChangeLog>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="seed-seo-pages-homepage" author="your-name">
+        <insert tableName="seo_pages">
+            <column name="slug" value="/"/>
+            <column name="title" value="serviceHub - место для фриланса, удаленной работы, честности и скорости"/>
+            <column name="description" value="Биржа фриланса serviceHub здесь работают профессионалы, не надо больше нанимать большие команды и управлять самому просто попробуйте нашу биржу фриланса serviceHub"/>
+            <column name="keywords" value="фриланс, биржа фриланса, удаленная работа, сервис для фрилансеров, serviceHub"/>
+            <column name="additional_information" value="{&quot;template&quot;:&quot;homepage&quot;,&quot;priority&quot;:1}"/>
+        </insert>
+        <insert tableName="seo_pages">
+            <column name="slug" value="/"/>
+            <column name="title" value="serviceHub - место для фриланса, удаленной работы, честности и скорости"/>
+            <column name="description" value="Биржа фриланса serviceHub здесь работают профессионалы, не надо больше нанимать большие команды и управлять самому просто попробуйте нашу биржу фриланса serviceHub"/>
+            <column name="keywords" value="фриланс, биржа фриланса, удаленная работа, сервис для фрилансеров, serviceHub"/>
+            <column name="additional_information" value="{&quot;template&quot;:&quot;homepage&quot;,&quot;priority&quot;:1}"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

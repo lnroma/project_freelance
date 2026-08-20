@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="create-order-categories-table" author="your-name">
+        <createTable tableName="order_categories" remarks="Таблица категорий заказов (IT-услуги)">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="text">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="deleted_at" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Заполнение 50 популярными IT-категориями -->
+    <changeSet id="insert-it-service-categories" author="your-name">
+        <comment>Добавление 50 популярных категорий IT-услуг</comment>
+
+        <insert tableName="order_categories">
+            <column name="name" value="Веб-разработка"/>
+            <column name="description" value="Создание и поддержка веб-сайтов и веб-приложений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Мобильная разработка"/>
+            <column name="description" value="Разработка приложений для iOS и Android"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="UI/UX дизайн"/>
+            <column name="description" value="Проектирование пользовательских интерфейсов и опыта взаимодействия"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Тестирование ПО"/>
+            <column name="description" value="Обеспечение качества программного обеспечения"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="DevOps"/>
+            <column name="description" value="Автоматизация процессов разработки и эксплуатации"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Кибербезопасность"/>
+            <column name="description" value="Защита информационных систем от киберугроз"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Облачные решения"/>
+            <column name="description" value="Внедрение и настройка облачных сервисов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Базы данных"/>
+            <column name="description" value="Проектирование, настройка и администрирование БД"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Системное администрирование"/>
+            <column name="description" value="Обслуживание серверного и сетевого оборудования"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Искусственный интеллект"/>
+            <column name="description" value="Разработка решений на основе ИИ и машинного обучения"/>
+        </insert>
+
+        <!-- Продолжение списка (21–50) -->
+        <insert tableName="order_categories">
+            <column name="name" value="Анализ данных"/>
+            <column name="description" value="Сбор, обработка и анализ больших данных"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Бизнес-аналитика"/>
+            <column name="description" value="Анализ бизнес-процессов и данных для принятия решений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Интеграция систем"/>
+            <column name="description" value="Объединение различных информационных систем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Техническая поддержка"/>
+            <column name="description" value="Помощь пользователям в решении технических проблем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Управление проектами"/>
+            <column name="description" value="Координация IT-проектов и команд"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Консалтинг в IT"/>
+            <column name="description" value="Консультации по IT-решениям и стратегиям"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="SEO-оптимизация"/>
+            <column name="description" value="Продвижение сайтов в поисковых системах"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Интернет-маркетинг"/>
+            <column name="description" value="Маркетинговые кампании в онлайн-среде"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Электронная коммерция"/>
+            <column name="description" value="Разработка и поддержка интернет-магазинов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="CRM-системы"/>
+            <column name="description" value="Внедрение и настройка систем управления взаимоотношениями с клиентами"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="ERP-системы"/>
+            <column name="description" value="Внедрение корпоративных систем управления ресурсами"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Блокчейн-разработка"/>
+            <column name="description" value="Создание решений на базе технологии блокчейн"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Виртуальная реальность"/>
+            <column name="description" value="Разработка VR-приложений и решений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Дополненная реальность"/>
+            <column name="description" value="Создание AR-приложений и решений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Интернет вещей (IoT)"/>
+            <column name="description" value="Разработка и интеграция IoT-решений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Администрирование сетей"/>
+            <column name="description" value="Настройка и обслуживание сетевых инфраструктур"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Виртуализация"/>
+            <column name="description" value="Внедрение решений виртуализации серверов и рабочих станций"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Резервное копирование"/>
+            <column name="description" value="Организация систем резервного копирования данных"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Восстановление данных"/>
+            <column name="description" value="Восстановление потерянных или повреждённых данных"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Аудит IT-инфраструктуры"/>
+            <column name="description" value="Комплексная проверка IT-систем организации"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Оптимизация производительности"/>
+            <column name="description" value="Улучшение быстродействия IT-систем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Оптимизация производительности"/>
+            <column name="description" value="Улучшение быстродействия IT‑систем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Автоматизация бизнес‑процессов"/>
+            <column name="description" value="Внедрение инструментов для автоматизации рабочих процессов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Разработка API"/>
+            <column name="description" value="Создание программных интерфейсов для взаимодействия систем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Микросервисная архитектура"/>
+            <column name="description" value="Проектирование и разработка микросервисов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Контейнеризация (Docker, Kubernetes)"/>
+            <column name="description" value="Упаковка приложений в контейнеры и оркестрация"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Мониторинг систем"/>
+            <column name="description" value="Настройка систем мониторинга IT‑инфраструктуры"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Локализация ПО"/>
+            <column name="description" value="Адаптация программного обеспечения для разных языков и регионов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Техническая документация"/>
+            <column name="description" value="Составление и поддержка технической документации"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Обучение пользователей"/>
+            <column name="description" value="Проведение тренингов и семинаров по IT‑продуктам"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Поддержка legacy‑систем"/>
+            <column name="description" value="Обслуживание устаревших IT‑систем"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Миграция данных"/>
+            <column name="description" value="Перенос данных между системами и платформами"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Веб‑аналитика"/>
+            <column name="description" value="Анализ поведения пользователей на веб‑сайтах"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Мобильная аналитика"/>
+            <column name="description" value="Анализ использования мобильных приложений"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Геймификация"/>
+            <column name="description" value="Внедрение игровых механик в IT‑продукты"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Чат‑боты и виртуальные ассистенты"/>
+            <column name="description" value="Разработка автоматизированных систем общения"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Обработка естественного языка (NLP)"/>
+            <column name="description" value="Создание систем понимания и генерации человеческой речи"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Компьютерное зрение"/>
+            <column name="description" value="Разработка систем распознавания изображений и видео"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Роботизация процессов (RPA)"/>
+            <column name="description" value="Автоматизация рутинных задач с помощью программных роботов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Управление IT‑активами"/>
+            <column name="description" value="Учёт и контроль IT‑оборудования и лицензий"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Информационная архитектура"/>
+            <column name="description" value="Проектирование структуры информационных систем"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

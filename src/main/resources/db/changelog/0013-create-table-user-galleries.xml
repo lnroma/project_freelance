@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="add_gallery_table" author="thaidatemate">
+        <createTable tableName="gallery">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="image_url" type="TEXT" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="position" type="INTEGER" defaultValue="0">
+                <!-- Позиция в галерее (сортировка) -->
+            </column>
+            <column name="is_avatar" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_head" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="deleted_at" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <!-- Можно добавить profile_id, если галерея привязана к профилю,
+                 а не к пользователю напрямую. Сейчас оставим без привязки,
+                 но лучше добавить связь. Добавим ниже. -->
+        </createTable>
+
+        <!-- ДОБАВЛЯЕМ СВЯЗИ: Галерея принадлежит профилю -->
+        <addColumn tableName="gallery">
+            <column name="profile_id" type="BIGINT">
+                <constraints foreignKeyName="fk_gallery_profile"
+                             referencedTableName="user_profiles" referencedColumnNames="id"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+</databaseChangeLog>

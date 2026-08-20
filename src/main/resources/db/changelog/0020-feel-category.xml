@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+<changeSet id="insert-it-freelance-categories" author="user">
+        <insert tableName="order_categories">
+            <column name="name" value="Веб-разработка"/>
+            <column name="description" value="Frontend, backend, fullstack, верстка сайтов"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Мобильная разработка"/>
+            <column name="description" value="iOS, Android, кроссплатформенные приложения"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="DevOps и администрирование"/>
+            <column name="description" value="CI/CD, Docker, Kubernetes, Linux, мониторинг"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Тестирование и QA"/>
+            <column name="description" value="Ручное и автоматизированное тестирование, нагрузочное тестирование"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Data Science и аналитика"/>
+            <column name="description" value="Анализ данных, ML, визуализация, статистика"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Кибербезопасность"/>
+            <column name="description" value="Пентест, аудит безопасности, защита инфраструктуры"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Базы данных и ETL"/>
+            <column name="description" value="Проектирование БД, SQL/NoSQL, миграция и интеграция данных"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="UX/UI и прототипирование"/>
+            <column name="description" value="Дизайн интерфейсов, прототипы, пользовательские исследования"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Технический контент и документация"/>
+            <column name="description" value="Техническая документация, статьи, туториалы, переводы"/>
+        </insert>
+        <insert tableName="order_categories">
+            <column name="name" value="Блокчейн и смарт-контракты"/>
+            <column name="description" value="Разработка на Solidity, блокчейн-архитектура, DeFi"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

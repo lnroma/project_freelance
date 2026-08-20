@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="create-orders-table" author="your-name">
+        <createTable tableName="orders" remarks="Таблица заказов системы">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="text">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="price_from" type="decimal(10,2)" defaultValue="0.00">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price_to" type="decimal(10,2)" defaultValue="0.00">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="deadline_at" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="city_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_orders_city_id"
+                        references="cities(id)"/>
+            </column>
+
+            <column name="category_id" type="bigint">
+            </column>
+
+            <column name="author_user_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_orders_author_user_id"
+                        references="users(id)"/>
+            </column>
+
+            <column name="executor_user_id" type="bigint">
+                <constraints
+                        nullable="true"
+                        foreignKeyName="fk_orders_executor_user_id"
+                        references="users(id)"/>
+            </column>
+
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="deleted_at" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
