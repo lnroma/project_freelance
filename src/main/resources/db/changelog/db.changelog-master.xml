@@ -22,5 +22,12 @@
     <include file="0018-add-seo-pages.xml" relativeToChangelogFile="true"/>
     <include file="0020-feel-category.xml" relativeToChangelogFile="true"/>
 
+    <include file="0021-add-field-order-id-to-order-responses.xml" relativeToChangelogFile="true" />
+    <include file="0022-create-table-user-history.xml" relativeToChangelogFile="true" />
+
+    <include file="023-create-order-counters.xml" relativeToChangelogFile="true"/>
+    <include file="024-create-user-counters-table.xml" relativeToChangelogFile="true"/>
+    <include file="0025-order-faq-table.xml" relativeToChangelogFile="true"/>
+
     <!-- Здесь можно добавлять другие миграции -->
 </databaseChangeLog>

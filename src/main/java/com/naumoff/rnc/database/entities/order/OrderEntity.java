@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders", schema = "fl")
@@ -44,6 +46,12 @@ public class OrderEntity {
     @JoinColumn(name = "executor_user_id", nullable = true)
     private UserEntity executor;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<OrderFaqEntity> orderFaqEntities = new ArrayList<>();
+
+    @OneToOne(mappedBy = "order")
+    private OrderCountersEntity orderCountersEntity;
+
     @Column(name = "price_from")
     private Double priceFrom;
 
@@ -61,6 +69,16 @@ public class OrderEntity {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+
+    // --- СВЯЗЬ "ОДИН КО МНОГИМ" ---
+    @OneToMany(
+            mappedBy = "order",           // Имя поля в классе OrderResponse
+            cascade = CascadeType.ALL,     // Осторожно: удалит все ответы, если удалить заказ. Часто используют MERGE или вообще без каскада.
+            orphanRemoval = true,         // Удалит ответ из БД, если убрал его из списка и сохранил заказ
+            fetch = FetchType.LAZY         // Обязательно LAZY! Иначе при загрузке любого заказа подтянется весь список ответов
+    )
+    private List<ResponseEntity> responses = new ArrayList<>();
 
     /**
      * Обработчик перед сохранением — устанавливает createdAt и updatedAt

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="create-order-counters-table" author="user">
+        <createTable tableName="order_counters">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_order_counters_order_id"/>
+            </column>
+            <column name="viewed" type="BIGINT">
+                <constraints nullable="true" />
+            </column>
+            <column name="offers" type="BIGINT">
+                <constraints nullable="true" />
+            </column>
+            <column name="questions" type="BIGINT">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="order_counters"
+                baseColumnNames="order_id"
+                constraintName="fk_order_counters_order_id"
+                referencedTableName="orders"
+                referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

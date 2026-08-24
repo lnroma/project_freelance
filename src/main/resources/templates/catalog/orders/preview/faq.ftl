@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" itemscope itemtype="https://schema.org/Service">
-<#include "../../fragments/httpHeader.ftl">
+<#include "../../../fragments/httpHeader.ftl">
 <body class="bg-light">
-<#include "../../fragments/header.ftl">
+<#include "../../../fragments/header.ftl">
 
 <style>
     .app-card {
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <#include "../../fragments/breadcrumbs.ftl">
+    <#include "../../../fragments/breadcrumbs.ftl">
 
     <!-- Контент страницы заказа -->
     <div class="order-details">
@@ -74,15 +74,8 @@
 
             <div class="app-card mb-4 primary-border">
                 <a href="/catalog/order/${order.id}/preview" class="btn btn-primary">Основное</a>
-                <#if isAuthenticated >
-                    <a href="/catalog/order/${order.id}/preview/offers"
-                       class="btn btn-primary">Предложения(${order.responses?size})</a>
-                </#if>
-                <a href="/catalog/order/${order.id}/preview/faq" class="btn btn-primary">Вопросы и
-                    ответы(${order.orderFaqEntities?size})</a>
-            </div>
-            <div class="app-card mb-4 primary-border">
-                <p itemprop="description" class="lead">${order.description}</p>
+                <a href="/catalog/order/${order.id}/preview/offers" class="btn btn-primary">Предложения(${order.responses?size})</a>
+                <a href="#" class="btn btn-primary">Вопросы и ответы(${order.orderFaqEntities?size})</a>
             </div>
 
             <!-- Метаинформация -->
@@ -95,7 +88,7 @@
                         </div>
                         <div class="mt-3">
                             <div class="fw-semibold text-muted small">Предложений</div>
-                            <div class="fw-bold">12</div>
+                            <div class="fw-bold">${order.responses?size}</div>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex flex-column">
@@ -106,52 +99,30 @@
                             <a href="#" itemprop="url" class="fw-bold text-decoration-none">
                                 ${profileService.getCurrentUserProfile(order.creator).firstName} ${profileService.getCurrentUserProfile(order.creator).lastName}
                             </a>
-                            <span class="ms-2">
-                                <i class="fas fa-star star-fill"></i> 4.8
-                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Форма подачи предложения -->
-            <div class="app-card primary-border">
-                <h4 class="fw-bold mb-3 border-bottom pb-2">Отправить предложение</h4>
+            <!-- Вопрос по заказу -->
+            <div class="app-card primary-border mb-4">
+                <h4 class="fw-bold mb-3 border-bottom pb-2">Вопрос по заказу</h4>
                 <#if isAuthenticated >
-                    <form itemprop="potentialAction" itemscope itemtype="https://schema.org/ApplyAction"
-                          action="/catalog/order/${order.id}/response" method="post">
-                        <input type="hidden" itemprop="target" value="/offer/submit">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="offerText" class="form-label fw-semibold">Текст предложения</label>
-                                <textarea class="form-control" id="offerText" rows="4"
-                                          name="description"
-                                          placeholder="Опишите ваш подход к выполнению заказа, опыт работы и преимущества сотрудничества..."
-                                          required></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="hidden" name="${csrf.parameterName}" value="${csrf.token}"/>
-                                <div>
-                                    <label for="offerBudget" class="form-label fw-semibold">Предварительный бюджет
-                                        (руб.)</label>
-                                    <input type="number" name="price" class="form-control" id="offerBudget"
-                                           placeholder="100000"
-                                           required>
-                                </div>
-                                <div>
-                                    <label for="offerDeadline" class="form-label fw-semibold">Срок выполнения</label>
-                                    <input type="number" name="timeline" class="form-control" id="offerDeadline"
-                                           placeholder="30 рабочих дней"
-                                           required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-3 border-top">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                Ответить на заказ
-                            </button>
-                        </div>
-                    </form>
+                <form itemprop="potentialAction" itemscope itemtype="https://schema.org/ApplyAction"
+                      action="/catalog/order/${order.id}/ask/question" method="post">
+                    <input type="hidden" itemprop="target" value="/offer/submit">
+                            <label for="offerText" class="form-label fw-semibold">Ваш вопрос</label>
+                            <textarea class="form-control" id="offerText" rows="4"
+                                      name="question"
+                                      placeholder="Задайте вопрос заказчику"
+                                      required></textarea>
+                            <input type="hidden" name="${csrf.parameterName}" value="${csrf.token}" />
+                    <div class="mt-4 pt-3 border-top">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            Задать вопрос
+                        </button>
+                    </div>
+                </form>
                 <#else>
                     <div class="lead">Что бы отправить предложение вы должны
                         либо <a href="/login">вторизоваться</a> либо <a href="/registration">Зарегистрироваться</a> в
@@ -159,16 +130,12 @@
                     </div>
                 </#if>
             </div>
-            <#if isAuthenticated >
-                <#if user.id == order.creator.id >
-                    <#include "./components/order_responses.ftl">
-                </#if>
-            </#if>
+            <#include "../components/order_faq.ftl">
         </div>
     </div>
 </div>
 
-<#include "../../fragments/footer.ftl">
+<#include "../../../fragments/footer.ftl">
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,6 @@
 package com.naumoff.rnc.database.entities.users;
 
+import com.naumoff.rnc.database.entities.order.OrderFaqEntity;
 import com.naumoff.rnc.database.entities.post.PostEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,7 +39,17 @@ public class UserEntity {
     private List<PostEntity> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserHistory> historyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserProfileEntity> profiles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderFaqEntity> orderFaqEntities = new ArrayList<>();
+//
+    public UserCountersEntity getUserCountersEntity() { return null; }
+//    @OneToOne(mappedBy = "user")
+//    private UserCountersEntity userCountersEntity;
 
     public String toString() {
         return "UserEntity{id=" + id + ",name=" + email + "}";

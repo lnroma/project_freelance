@@ -2,12 +2,15 @@ package com.naumoff.rnc.controller.user;
 
 import com.naumoff.rnc.database.entities.post.PostEntity;
 import com.naumoff.rnc.database.entities.users.UserEntity;
+import com.naumoff.rnc.database.entities.users.UserProfileEntity;
 import com.naumoff.rnc.database.repository.users.UserRepository;
 import com.naumoff.rnc.dto.users.ProfileForm;
+import com.naumoff.rnc.dto.users.history.UserHistoryInterface;
 import com.naumoff.rnc.model.AuthenticatedUser;
 import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
 import com.naumoff.rnc.services.cities.CityService;
 import com.naumoff.rnc.services.post.PostService;
+import com.naumoff.rnc.services.users.UserHistoryService;
 import com.naumoff.rnc.services.users.UserProfileService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,19 +35,22 @@ public class ProfileController {
     private final BreadcrumbsService breadcrumbsService;
     private final CityService cityService;
     private final UserProfileService userProfileService;
+    private final UserHistoryService userHistoryService;
 
     public ProfileController(
             PostService postService,
             UserRepository userRepository,
             BreadcrumbsService breadcrumbsService,
             CityService cityService,
-            UserProfileService userProfileService
+            UserProfileService userProfileService,
+            UserHistoryService userHistoryService
     ) {
         this.postService = postService;
         this.userRepository = userRepository;
         this.breadcrumbsService = breadcrumbsService;
         this.cityService = cityService;
         this.userProfileService = userProfileService;
+        this.userHistoryService = userHistoryService;
     }
 
     @GetMapping("/profile")
@@ -105,7 +111,15 @@ public class ProfileController {
     ) {
         UserEntity currentUser = authUser.getEntity();
 
-        userProfileService.saveProfile(profileForm, currentUser);
+        UserProfileEntity userProfileEntity = userProfileService.saveProfile(profileForm, currentUser);
+
+        userHistoryService.createHistoryRecord(
+                "Вы создали профаил",
+                "Ваш профаил был успешно создан",
+                currentUser,
+                UserHistoryInterface.OBJECT_TYPE_PROFILE,
+                userProfileEntity.getId()
+        );
 
         return "redirect:/profile";
     }
@@ -144,7 +158,16 @@ public class ProfileController {
                              RedirectAttributes ra) {
         UserEntity user = authUser.getEntity();
         if (content != null && !content.isBlank()) {
-            postService.createPost(user, content.trim());
+            PostEntity postEntity = postService.createPost(user, content.trim());
+
+            userHistoryService.createHistoryRecord(
+                    "Вы создали запись в блоге",
+                    "Вы успешно создали запись в своем блоге",
+                    user,
+                    UserHistoryInterface.OBJECT_TYPE_RECORD_POST,
+                    postEntity.getId()
+            );
+
             ra.addFlashAttribute("success", "Запись опубликована!");
         }
         return "redirect:/profile";

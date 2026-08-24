@@ -13,6 +13,7 @@
                             <span class="text-muted">Найдено заказов: <strong>${orderCount}</strong></span>
                         </div>
                     </div>
+    <#include "../fragments/breadcrumbs.ftl">
     <div class="row">
         <!-- Сайдбар с фильтрами -->
         <div class="col-md-3">
@@ -31,27 +32,44 @@
                     <!-- Заказ 1 -->
                     <#list orders as order>
                     <div class="order-card">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
+                        <div class="d-flex justify-content-between align-items-start row">
+                            <div class="col-md-9 right-border">
                                 <h5>${order.title}</h5>
                                 <p class="text-muted mb-2">${order.description}</p>
                                 <div class="d-flex gap-3 mb-2">
                                     <span class="badge bg-primary">${order.category.name}</span>
                                     <span class="badge bg-secondary">${order.city.cityName}</span>
                                 </div>
+                                <div class="d-flex gap-3 mb-2">
+                                    <h6 class="text-primary">от ${order.priceFrom} до ${order.priceTo} руб.</h6>
+                                </div>
                             </div>
-                            <div class="text-end">
-                                <h4 class="text-primary mb-1">от ${order.priceFrom} до ${order.priceTo} руб.</h4>
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="fas fa-star text-warning"></i>
-                                    <span>4.8</span>
-                                    <small class="text-muted">(24 отзыва)</small>
+                            <div class="col-md-3">
+<#--                                <h4 class="text-primary mb-1">от ${order.priceFrom} до ${order.priceTo} руб.</h4>-->
+                                <img src="/assets/img/avatar.jpeg" alt="avatar"
+                                     class="rounded-circle" width="36" height="36" style="object-fit: cover;">
+                                Иванов Иван
+                                <div class="d-flex gap-3 mt-2">
+                                    Рейтинг: 4.8
+                                </div>
+                                <div class="d-flex gap-3 mt-2">
+                                    Отзывы: 4
+                                </div>
+                                <div class="d-flex gap-3 mt-2">
+                                    Заказов создано: 3
+                                </div>
+                                <div class="d-flex gap-3 mt-2">
+                                    Нанято: 4 исполнителя
                                 </div>
                             </div>
                         </div>
                         <div class="mt-3">
                             <a href="/catalog/order/${order.id}/preview" class="btn btn-outline-primary btn-sm">Подробнее</a>
-                            <button class="btn btn-sm btn-success">Откликнуться</button>
+                            <#if isAuthenticated>
+                            <a href="#" class="btn btn-warning btn-sm">Скыть заказы</a>
+                            <a href="#" class="btn btn-primary btn-sm">Следить за заказами</a>
+<#--                            <button class="btn btn-sm btn-success">Откликнуться</button>-->
+                            </#if>
                         </div>
                     </div>
                     </#list>

@@ -1,5 +1,5 @@
 <form method="get" action="/catalog">
-    <div class="sidebar" style="padding: 15px; padding-top:0px!important;background: #f8f9fa;">
+    <div class="sidebar" style="padding: 15px; padding-top:0px!important; padding-left:0px!important; background: #f8f9fa;">
 
         <!-- Цена (без изменений) -->
         <div class="filter-section mb-4">

@@ -1,5 +1,6 @@
 package com.naumoff.rnc.interceptor;
 
+import com.naumoff.rnc.model.AuthenticatedUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,8 +32,14 @@ public class AuthInterceptor implements HandlerInterceptor {
                 && !(auth instanceof AnonymousAuthenticationToken)
                 && auth.isAuthenticated();
 
+
         modelAndView.addObject("isAuthenticated", isAuthenticated);
         modelAndView.addObject("authentication", auth);
+
+        if (isAuthenticated) {
+            AuthenticatedUser authUser = (AuthenticatedUser) auth.getPrincipal();
+            modelAndView.addObject("user", authUser.getEntity());
+        }
         // можно положить userDetails, username и т.д.
     }
 }

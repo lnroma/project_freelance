@@ -1,6 +1,7 @@
 package com.naumoff.rnc.controller.catalog;
 
 import com.naumoff.rnc.database.entities.order.OrderEntity;
+import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
 import com.naumoff.rnc.services.cities.CityService;
 import com.naumoff.rnc.services.formaters.LinkHelperService;
 import com.naumoff.rnc.services.order.CategoryService;
@@ -24,17 +25,20 @@ public class MainController {
     private final CategoryService categoryService;
     private final CityService cityService;
     private final LinkHelperService linkHelperService;
+    private final BreadcrumbsService breadcrumbsService;
 
     public MainController(
             OrderService orderService,
             CategoryService categoryService,
             CityService cityService,
-            LinkHelperService linkHelperService
+            LinkHelperService linkHelperService,
+            BreadcrumbsService breadcrumbsService
     ) {
         this.orderService = orderService;
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.linkHelperService = linkHelperService;
+        this.breadcrumbsService = breadcrumbsService;
     }
 
     @GetMapping("/catalog")
@@ -128,5 +132,7 @@ public class MainController {
 
         model.addAttribute("categories", categoryService.getAllCategoryList());
         model.addAttribute("cities", cityService.getAllAvailableCity());
+
+        breadcrumbsService.assignBreadcrumbsToModel(breadcrumbsService.BR_CATALOG, model);
     }
 }
