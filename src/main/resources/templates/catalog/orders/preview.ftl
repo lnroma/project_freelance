@@ -103,9 +103,12 @@
                         <div class="fw-bold">${order.createdAt}</div>
                         <div class="mt-2">
                             <div class="fw-semibold text-muted small">Заказчик</div>
-                            <a href="#" itemprop="url" class="fw-bold text-decoration-none">
+                            <a href="/profile/${profileService.getCurrentUserProfile(order.creator).id}" itemprop="url" class="fw-bold text-decoration-none">
                                 ${profileService.getCurrentUserProfile(order.creator).firstName} ${profileService.getCurrentUserProfile(order.creator).lastName}
                             </a>
+                            <#if isAuthenticated >
+                            <a href="/send/message/to/${order.creator.id}">Написать сообщение</a>
+                            </#if>
                             <span class="ms-2">
                                 <i class="fas fa-star star-fill"></i> 4.8
                             </span>

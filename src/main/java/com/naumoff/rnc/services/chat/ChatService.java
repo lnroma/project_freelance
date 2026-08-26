@@ -89,7 +89,7 @@ public class ChatService {
 
     public List<ConversationMessage> getMessageFromConversation(Long conversationId) {
         return conversationMessageRepository
-                .findByConversationIdAndDeletedAtIsNullOrderByCreatedAtDesc(
+                .findByConversationIdAndDeletedAtIsNullOrderByCreatedAtAsc(
                         conversationId
                 );
     }

@@ -24,6 +24,12 @@ public class ConversationMessage {
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
+    @Column(name = "sender_id")
+    private Long senderId;
+
+    @Column(name = "is_read")
+    private Boolean isRead;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

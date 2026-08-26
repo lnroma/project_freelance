@@ -48,10 +48,22 @@
         //     .replace(/'/g, '&#39;');
 
         <#--const isMe = msg.senderId === parseInt('${currentUserId}'); // из шаблона FreeMarker-->
+        const currentConversationId = document.getElementById("currentConversationId").value;
+        console.log(currentConversationId);
+        console.log("conversation id from message " + msg.conversationId);
+
+        if (currentConversationId != msg.conversationId) {
+            return;
+        }
 
 
         container.innerHTML = msg.template;
         container.scrollTop = container.scrollHeight; // автоскролл вниз
+    }
+
+    function renderConversation(conversation) {
+        const container = document.getElementById("conversationContainer");
+        container.innerHTML = conversation.conversations;
     }
 
     function listenerSocket() {
@@ -68,6 +80,15 @@
                 }
                 // console.log(message.body);
             });
+
+            stompClient.subscribe("/user/queue/conversation", function (message) {
+                try {
+                    const payload = JSON.parse(message.body);
+                    renderConversation(payload);
+                } catch (e) {
+                    console.log(e);
+                }
+            })
         });
     }
 
@@ -98,7 +119,8 @@
                 const fId = document.getElementById('fromId').value;
                 const tId = document.getElementById('toId').value;
                 console.log("current recipient id " + recipientId);
-                sendMessage(text, fId, recipientId);
+                sendMessage(text, fId, tId);
+                document.getElementById("messageInput").value = "";
             });
         });
     }

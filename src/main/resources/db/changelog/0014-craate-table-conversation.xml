@@ -65,6 +65,9 @@
             <column name="deleted_at" type="TIMESTAMP">
                 <constraints nullable="true"/>
             </column>
+            <column name="is_read" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
 
         <addForeignKeyConstraint

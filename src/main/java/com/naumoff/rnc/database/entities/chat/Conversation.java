@@ -35,6 +35,9 @@ public class Conversation {
     @Column(name = "archived_at")
     private LocalDateTime archivedAt;
 
+    @Column(name = "order_width")
+    private Long orderWidth;
+
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
     private java.util.List<ConversationMessage> messages;
 

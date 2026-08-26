@@ -28,6 +28,10 @@
     <include file="023-create-order-counters.xml" relativeToChangelogFile="true"/>
     <include file="024-create-user-counters-table.xml" relativeToChangelogFile="true"/>
     <include file="0025-order-faq-table.xml" relativeToChangelogFile="true"/>
+    <include file="0026-add-sender-id-to-messages.xml" relativeToChangelogFile="true"/>
+
+<!--    <include file="0027-add-is-read-to-message.xml" relativeToChangelogFile="true" />-->
+    <include file="0028-add-field-to-conversation-order-width.xml" relativeToChangelogFile="true" />
 
     <!-- Здесь можно добавлять другие миграции -->
 </databaseChangeLog>

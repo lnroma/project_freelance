@@ -22,7 +22,7 @@
                         <a class="nav-link" href="/dashboard">Дашборд</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/chat">Сообщения</a>
+                        <a class="nav-link" href="/user/chat/">Сообщения</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/settings">Настройки</a>

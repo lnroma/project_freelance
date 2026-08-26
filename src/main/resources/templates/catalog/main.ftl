@@ -61,12 +61,12 @@
                                 <div class="d-flex gap-3 mt-2">
                                     Нанято: 4 исполнителя
                                 </div>
-                            </div>
+                             </div>
                         </div>
                         <div class="mt-3">
                             <a href="/catalog/order/${order.id}/preview" class="btn btn-outline-primary btn-sm">Подробнее</a>
                             <#if isAuthenticated>
-                            <a href="#" class="btn btn-warning btn-sm">Скыть заказы</a>
+                            <a href="#" class="btn btn-warning btn-sm">Скрыть заказы</a>
                             <a href="#" class="btn btn-primary btn-sm">Следить за заказами</a>
 <#--                            <button class="btn btn-sm btn-success">Откликнуться</button>-->
                             </#if>

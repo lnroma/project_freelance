@@ -1,12 +1,15 @@
 <#if messages??>
 <#list messages as msg>
     <div class="message
-<#--${msg.senderId == currentUserId?then('outgoing','incoming')}-->
-outgoing
+    <#if currentUser.id == msg.senderId>
+        incoming
+        <#else>
+        outgoing
+    </#if>
 ">
         ${msg.message}
         <div class="message-meta">
-            ${msg.createdAt}
+            ${msg.createdAt?datetime("yyyy-MM-dd'T'HH:mm:ss.SSS")?string("dd-MM-yy HH:mm")}
         </div>
     </div>
 </#list>
