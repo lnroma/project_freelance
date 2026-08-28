@@ -2,6 +2,8 @@ package com.naumoff.rnc.database.repository.chat;
 
 import com.naumoff.rnc.database.entities.chat.Conversation;
 import com.naumoff.rnc.database.entities.chat.ConversationMessage;
+import com.naumoff.rnc.database.entities.users.UserEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +26,27 @@ public interface ConversationMessageRepository extends JpaRepository<Conversatio
     Long conversation(Conversation conversation);
 
     @Modifying
-    @Query("UPDATE ConversationMessage cm SET cm.isRead = true WHERE cm.conversation = :convId")
-    void setIsReadMessagesByConversationId(@Param("convId") Long convId);
+    @Transactional
+    @Query("UPDATE ConversationMessage cm SET cm.isRead = true WHERE cm.conversation = :conversation and cm.sender != :currentUser")
+    void setIsReadMessagesByConversationId(
+            @Param("conversation") Conversation conversation,
+            @Param("currentUser") UserEntity currentUser
+            );
+
+    @Query("SELECT COUNT(cm.id) FROM ConversationMessage cm WHERE" +
+            " cm.isRead = false " +
+            " and cm.conversation = :conversation" +
+            " and cm.sender != :currentUser")
+    Long countUnreadMessages(
+            @Param("conversation") Conversation conversation,
+            @Param("currentUser") UserEntity currentUser
+    );
+
+    @Query("SELECT COUNT(cm.id) FROM ConversationMessage cm " +
+            "LEFT JOIN Conversation c ON c = cm.conversation WHERE " +
+            " (c.userFromEntity = :currentUser OR c.userToEntity = :currentUser)" +
+            " AND cm.sender != :currentUser")
+    Long countAllUnreadMessages(
+            @Param("currentUser") UserEntity currentUser
+    );
 }

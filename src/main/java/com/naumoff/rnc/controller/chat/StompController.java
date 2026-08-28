@@ -9,6 +9,7 @@ import com.naumoff.rnc.database.repository.chat.ConversationMessageRepository;
 import com.naumoff.rnc.database.repository.chat.ConversationRepository;
 import com.naumoff.rnc.database.repository.users.UserRepository;
 import com.naumoff.rnc.dto.chat.ChatMessage;
+import com.naumoff.rnc.dto.chat.ReadingConversationDto;
 import com.naumoff.rnc.dto.chat.TriggerDto;
 import com.naumoff.rnc.services.TemplateService;
 import com.naumoff.rnc.services.chat.ChatService;
@@ -33,26 +34,45 @@ import java.util.Map;
 public class StompController {
 
     final private ConversationsService conversationsService;
-    final private MessageService messageService;
     final private ConversationUpdaterService conversationUpdaterService;
     private final UserService userService;
     private final SendMessageToConversationService sendMessageToConversationService;
     private final SaveMessageService saveMessageService;
+    private final UserRepository userRepository;
 
     public StompController(
             ConversationsService conversationsService,
-            MessageService messageService,
             ConversationUpdaterService conversationUpdaterService,
             UserService userService,
             SendMessageToConversationService sendMessageToConversationService,
-            SaveMessageService saveMessageService
+            SaveMessageService saveMessageService,
+            UserRepository userRepository
     ) {
         this.conversationsService = conversationsService;
-        this.messageService = messageService;
         this.conversationUpdaterService = conversationUpdaterService;
         this.userService = userService;
         this.sendMessageToConversationService = sendMessageToConversationService;
         this.saveMessageService = saveMessageService;
+        this.userRepository = userRepository;
+    }
+
+    @MessageMapping("/mark-is-read")
+    public void readAllMessages(
+            ReadingConversationDto readingConversationDto,
+            SimpMessageHeaderAccessor headerAccessor
+    ) {
+        Conversation conversation = conversationsService.getConversationById(readingConversationDto.getConversationId());
+
+        UserEntity currentUser = userService.getUserById(Long.valueOf(headerAccessor.getUser().getName()));
+        conversationsService.setIsReadAllMessagesInConversation(conversation, currentUser);
+        conversationsService.resetConversationWidth(conversation);
+
+        conversationUpdaterService.updateConversationList(
+                conversation.getUserFromEntity(),
+                conversation.getUserToEntity(),
+                headerAccessor.getMessageHeaders(),
+                conversation
+        );
     }
 
     @MessageMapping("/send-message")
@@ -61,15 +81,15 @@ public class StompController {
             SimpMessageHeaderAccessor headerAccessor
     ) {
         Conversation conversation = this.conversationsService.getConversationWithUserOrCreateNew(
-                chatMessage.getSenderId(),
-                chatMessage.getRecipientId()
+                userService.getUserById(chatMessage.getSenderId()),
+                userService.getUserById(chatMessage.getRecipientId())
         );
 
         saveMessageService.saveMessage(Long.valueOf(headerAccessor.getUser().getName()),conversation, chatMessage);
 
         conversationUpdaterService.updateConversationList(
-                userService.getUserById(conversation.getUserFrom()),
-                userService.getUserById(conversation.getUserTo()),
+                conversation.getUserFromEntity(),
+                conversation.getUserToEntity(),
                 headerAccessor.getMessageHeaders(),
                 conversation
         );

@@ -5,6 +5,7 @@ import com.naumoff.rnc.database.entities.users.UserEntity;
 import com.naumoff.rnc.services.TemplateService;
 import com.naumoff.rnc.services.chat.ChatService;
 import com.naumoff.rnc.services.chat.ConversationsService;
+import com.naumoff.rnc.services.users.UserService;
 import freemarker.template.TemplateException;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

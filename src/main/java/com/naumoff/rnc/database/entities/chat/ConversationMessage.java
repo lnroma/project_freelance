@@ -1,5 +1,6 @@
 package com.naumoff.rnc.database.entities.chat;
 
+import com.naumoff.rnc.database.entities.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,9 @@ public class ConversationMessage {
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @Column(name = "sender_id")
-    private Long senderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = false)
+    private UserEntity sender;
 
     @Column(name = "is_read")
     private Boolean isRead;
@@ -49,5 +51,10 @@ public class ConversationMessage {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + this.getId();
     }
 }

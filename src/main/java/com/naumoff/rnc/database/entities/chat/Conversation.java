@@ -1,5 +1,6 @@
 package com.naumoff.rnc.database.entities.chat;
 
+import com.naumoff.rnc.database.entities.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,13 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_from", nullable = false)
-    private Long userFrom;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_from", nullable = false)
+    private UserEntity userFromEntity;
 
-    @Column(name = "user_to", nullable = false)
-    private Long userTo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_to", nullable = false)
+    private UserEntity userToEntity;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

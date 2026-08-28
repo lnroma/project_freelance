@@ -30,12 +30,13 @@ public class ChatService {
         this.userRepository = userRepository;
     }
 
+
     public List<ChatDto> getLastChats(UserEntity currentUser) {
         List<ChatDto> chats = new ArrayList<>();
 
-        List<Conversation> conversations = this.conversationRepository.findByUserFromOrUserToAndDeletedAtIsNullOrderByCreatedAtDesc(
-                currentUser.getId(),
-                currentUser.getId()
+        List<Conversation> conversations = this.conversationRepository.findByUserFromEntityOrUserToEntityAndDeletedAtIsNullOrderByOrderWidthDesc(
+                currentUser,
+                currentUser
         );
 
         if (conversations.isEmpty()) {
@@ -43,16 +44,10 @@ public class ChatService {
         }
 
         conversations.forEach(conversation -> {
-            Long recipientId = conversation.getUserFrom();
-            if (recipientId.equals(currentUser.getId())) {
-                recipientId = conversation.getUserTo();
-            }
+            UserEntity recipientUser = conversation.getUserFromEntity();
 
-            UserEntity recipientUser;
-            try {
-                recipientUser = this.userRepository.findById(recipientId).get();
-            } catch (Exception e) {
-                recipientUser = currentUser;
+            if (recipientUser.equals(currentUser)) {
+                recipientUser = conversation.getUserToEntity();
             }
 
             List<ConversationMessage> conversationMessages = this.conversationMessageRepository
@@ -64,11 +59,23 @@ public class ChatService {
                 lastMessage = convMessage.getMessage();
             }
 
-            chats.add(new ChatDto(recipientUser.getEmail(), lastMessage, conversation.getId(), recipientId));
+            ChatDto chatDto = ChatDto.builder()
+                    .isActive(false)
+                    .recipientName(recipientUser.getEmail())
+                    .lastMessage(lastMessage)
+                    .conversationId(conversation.getId())
+                    .recipientId(recipientUser.getId())
+                    .countUnreadMessages(conversationMessageRepository.countUnreadMessages(
+                            conversation,
+                            currentUser
+                    ))
+                    .build();
+
+            chats.add(chatDto);
         });
 
         if (!chats.isEmpty()) {
-            chats.get(0).setActive(true);
+            chats.get(0).setIsActive(true);
         }
 
         return chats;
@@ -78,7 +85,7 @@ public class ChatService {
         AtomicReference<ChatDto> chatDtoResult = new AtomicReference<>();
         if (!chats.isEmpty()) {
             chats.forEach(chatDto -> {
-                if (chatDto.getActive()) {
+                if (chatDto.getIsActive()) {
                     chatDtoResult.set(chatDto);
                 }
             });

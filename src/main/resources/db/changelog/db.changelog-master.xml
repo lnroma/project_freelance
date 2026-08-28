@@ -32,6 +32,7 @@
 
 <!--    <include file="0027-add-is-read-to-message.xml" relativeToChangelogFile="true" />-->
     <include file="0028-add-field-to-conversation-order-width.xml" relativeToChangelogFile="true" />
+    <include file="0029-feel-table-seo-pages.xml" relativeToChangelogFile="true" />
 
     <!-- Здесь можно добавлять другие миграции -->
 </databaseChangeLog>

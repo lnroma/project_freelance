@@ -1,9 +1,6 @@
 package com.naumoff.rnc.config;
 
-import com.naumoff.rnc.interceptor.AuthInterceptor;
-import com.naumoff.rnc.interceptor.CsrfInterceptor;
-import com.naumoff.rnc.interceptor.CurrentQueryInterceptor;
-import com.naumoff.rnc.interceptor.SeoInterceptor;
+import com.naumoff.rnc.interceptor.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -16,17 +13,20 @@ public class WebConfig implements WebMvcConfigurer {
     final private SeoInterceptor seoInterceptor;
     final private CsrfInterceptor csrfInterceptor;
     final private CurrentQueryInterceptor currentQueryInterceptor;
+    final private CountersInterceptor countersInterceptor;
 
     public WebConfig(
             AuthInterceptor authInterceptor,
             SeoInterceptor seoInterceptor,
             CsrfInterceptor csrfInterceptor,
-            CurrentQueryInterceptor currentQueryInterceptor
+            CurrentQueryInterceptor currentQueryInterceptor,
+            CountersInterceptor countersInterceptor
     ) {
         this.authInterceptor = authInterceptor;
         this.seoInterceptor = seoInterceptor;
         this.csrfInterceptor = csrfInterceptor;
         this.currentQueryInterceptor = currentQueryInterceptor;
+        this.countersInterceptor = countersInterceptor;
     }
 
     @Override
@@ -44,5 +44,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(seoInterceptor);
         registry.addInterceptor(csrfInterceptor);
         registry.addInterceptor(currentQueryInterceptor);
+        registry.addInterceptor(countersInterceptor);
     }
 }

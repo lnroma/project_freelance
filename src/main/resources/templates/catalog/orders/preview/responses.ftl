@@ -74,7 +74,7 @@
 
             <div class="app-card mb-4 primary-border">
                 <a href="/catalog/order/${order.id}/preview" class="btn btn-primary">Основное</a>
-                <a href="#" class="btn btn-primary">Предложения(${order.responses?size})</a>
+                <a href="#" class="btn btn-success">Предложения(${order.responses?size})</a>
                 <a href="/catalog/order/${order.id}/preview/faq" class="btn btn-primary">Вопросы и ответы(${order.orderFaqEntities?size})</a>
             </div>
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+<changeSet id="insert-russian-regional-capitals" author="your-name">
+    <comment>Добавление областных центров России в таблицу cities</comment>
+
+    <insert tableName="seo_pages">
+        <column name="slug" value="/dashboard"/>
+        <column name="title" value="Панель управления пользователя в системе ServiceHub"/>
+        <column name="description" value="Service hub - панель управления пользователем"/>
+    </insert>
+
+    <insert tableName="seo_pages">
+        <column name="slug" value="/catalog" />
+        <column name="title" value="Каталог заказов для сервиса ServiceHub, тут вы точно найдете работу по душе"/>
+        <column name="description" value="Каталог закзаов для сервиса, тут каждый найдет работу для себя, а заказчик решит все свои проблемы в короткие сроки" />
+        <column name="keywords" value="Каталог заказов, создать заказ на разработку, разработка, заказать разработку сайта" />
+    </insert>
+
+    <insert tableName="seo_pages">
+        <column name="slug" value="/catalog[all]order[all]preview"/>
+        <column name="title" value="Предпросмотр заказа ${order.title}" />
+        <column name="description" value="Предпросмотр заказа ${order.title}, ${order.description}" />
+        <column name="keywords" value="Взять заказ в работу, фриланс, выполнить заказ, аналитика" />
+    </insert>
+
+    <insert tableName="seo_pages">
+        <column name="slug" value="/catalog[all]faq"/>
+        <column name="title" value="Вопросы и ответы по заказу ${order.title}" />
+        <column name="description" value="Вопросы и ответы по заказу ${order.description}" />
+        <column name="keywords" value="Вопрос и ответ по заказу, дать свою экспертную оценку, фриланс" />
+    </insert>
+    
+    <insert tableName="seo_pages">
+        <column name="slug" value="/user/chat[all]" />
+        <column name="title" value="Пользовательские чаты" />
+        <column name="description" value="Пользовательские чаты" />
+    </insert>
+
+    <insert tableName="seo_pages">
+        <column name="slug" value="/"/>
+        <column name="title" value="ServiceHub - площадка для фриланчеров и заказчиков на базе ИИ" />
+        <column name="description" value="ServiceHub - это в первую очередь сообщество профессионалов, которые решают ваши задачи в кратчайшие сроки и качественно" />
+        <column name="keywords" value="servicehub, фриланс, площадка фриланса, найти программиста, дизайнера" />
+    </insert>
+</changeSet>
+</databaseChangeLog>

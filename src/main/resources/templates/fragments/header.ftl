@@ -22,7 +22,11 @@
                         <a class="nav-link" href="/dashboard">Дашборд</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/chat/">Сообщения</a>
+                        <a class="nav-link" href="/user/chat/">Сообщения
+                        <#if counterDto.notReadMessages gt 0>
+                            <span class="badge bg-primary">${counterDto.notReadMessages}</span>
+                            </#if>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/settings">Настройки</a>

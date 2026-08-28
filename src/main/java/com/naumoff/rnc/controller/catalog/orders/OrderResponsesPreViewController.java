@@ -30,12 +30,15 @@ public class OrderResponsesPreViewController {
             Long id
     ) {
         OrderEntity order = orderService.getOrderById(id);
+
+        if (!order.getCreator().getId().equals(authUser.getEntity().getId())) {
+            return "redirect:/catalog/order/" + order.getId() + "/preview/";
+        }
+
         model.addAttribute("order", order);
 
-        if (authUser != null) {
-            UserEntity userEntity = authUser.getEntity();
-            model.addAttribute("currentUser", userEntity);
-        }
+        UserEntity userEntity = authUser.getEntity();
+        model.addAttribute("currentUser", userEntity);
 
         return "/catalog/orders/preview/responses";
     }

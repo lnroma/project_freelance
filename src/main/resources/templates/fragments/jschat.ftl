@@ -35,6 +35,14 @@
         stompClient.send('/app/load-message', {}, JSON.stringify(payload));
     }
 
+    function sendIsReadMessages(cId) {
+        const payload = {
+            conversationId: cId
+        }
+
+        stompClient.send("/app/mark-is-read", {}, JSON.stringify(payload));
+    }
+
     function renderMessage(msg) {
         const container = document.getElementById('chatMessages');
         if (!container) return;
@@ -59,6 +67,8 @@
 
         container.innerHTML = msg.template;
         container.scrollTop = container.scrollHeight; // автоскролл вниз
+
+        sendIsReadMessages(currentConversationId);
     }
 
     function renderConversation(conversation) {

@@ -9,12 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatDto {
-
-    private Boolean isActive;
-    private String recipientName;
-    private String lastMessage;
+public class ReadingConversationDto {
     private Long conversationId;
-    private Long recipientId;
-    private Long countUnreadMessages;
 }

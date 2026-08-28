@@ -52,11 +52,11 @@
             </div>
             <div class="text-end">
                 <span class="stat-badge">
-                    <strong>9</strong> ответов
+                    <strong>${order.responses?size}</strong> ответов
                 </span>
-                <span class="stat-badge ms-2">
-                    <strong>47</strong> просмотров
-                </span>
+<#--                <span class="stat-badge ms-2">-->
+<#--                    <strong></strong> просмотров-->
+<#--                </span>-->
             </div>
         </div>
     </div>
@@ -73,13 +73,21 @@
             <meta itemprop="highPrice" content="${order.priceTo}">
 
             <div class="app-card mb-4 primary-border">
-                <a href="/catalog/order/${order.id}/preview" class="btn btn-primary">Основное</a>
+                <a href="/catalog/order/${order.id}/preview" class="btn btn-success">Основное</a>
                 <#if isAuthenticated >
+                    <#if order.creator.id == user.id >
                     <a href="/catalog/order/${order.id}/preview/offers"
                        class="btn btn-primary">Предложения(${order.responses?size})</a>
+                    </#if>
                 </#if>
                 <a href="/catalog/order/${order.id}/preview/faq" class="btn btn-primary">Вопросы и
                     ответы(${order.orderFaqEntities?size})</a>
+                <#if isAuthenticated >
+                    <#if order.creator.id != order.executor.id && order.executor == user.id >
+                        <a href="/catalog/order/${order.id}/preview/tasks"
+                           class="btn btn-primary">Задачи по заказу (0)</a>
+                    </#if>
+                </#if>
             </div>
             <div class="app-card mb-4 primary-border">
                 <p itemprop="description" class="lead">${order.description}</p>

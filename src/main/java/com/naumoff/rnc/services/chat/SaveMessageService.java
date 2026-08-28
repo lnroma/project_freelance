@@ -4,6 +4,7 @@ import com.naumoff.rnc.database.entities.chat.Conversation;
 import com.naumoff.rnc.database.entities.chat.ConversationMessage;
 import com.naumoff.rnc.database.repository.chat.ConversationMessageRepository;
 import com.naumoff.rnc.dto.chat.ChatMessage;
+import com.naumoff.rnc.services.users.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,13 +14,15 @@ public class SaveMessageService {
 
     private final ConversationsService conversationsService;
     private final ConversationMessageRepository conversationMessageRepository;
+    private final UserService userService;
 
     public SaveMessageService(
             ConversationsService conversationsService,
-            ConversationMessageRepository conversationMessageRepository
-    ) {
+            ConversationMessageRepository conversationMessageRepository,
+            UserService userService) {
         this.conversationsService = conversationsService;
         this.conversationMessageRepository = conversationMessageRepository;
+        this.userService = userService;
     }
 
     public ConversationMessage saveMessage(
@@ -32,10 +35,10 @@ public class SaveMessageService {
         cm.setConversation(conversation);
         cm.setCreatedAt(LocalDateTime.now());
         cm.setUpdatedAt(LocalDateTime.now());
-        cm.setSenderId(currentUserId);
+        cm.setSender(userService.getUserById(currentUserId));
         cm.setIsRead(false);
 
-        conversationsService.setOrderWidthToConversation(conversation, 2L);
+        conversationsService.upConversation(conversation);
 
         this.conversationMessageRepository.save(cm);
 

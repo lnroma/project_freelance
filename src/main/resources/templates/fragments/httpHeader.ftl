@@ -1,8 +1,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Панель управления — Thaidatemate</title>
-
+    <#if seo?? >
+    <title>${seo.title}</title>
+    <meta name="description" content="${seo.description! "ServiceHub - создай заказ и получи результат через 5 минут"}"/>
+        <#else>
+            <title>Инновационная площадка для фрилансеров и заказчиков которая решает проблемы</title>
+            <meta name="description" content="ServiceHub - создай заказ и получи результат через 5 минут"/>
+    </#if>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

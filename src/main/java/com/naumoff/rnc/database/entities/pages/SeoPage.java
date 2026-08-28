@@ -1,11 +1,18 @@
 package com.naumoff.rnc.database.entities.pages;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Entity
+@Data
 @Table(name = "seo_pages", schema = "fl")
+@AllArgsConstructor
+@NoArgsConstructor
 public class SeoPage {
 
     @Id

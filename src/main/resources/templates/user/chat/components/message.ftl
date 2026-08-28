@@ -1,7 +1,7 @@
 <#if messages??>
 <#list messages as msg>
     <div class="message
-    <#if currentUser.id == msg.senderId>
+    <#if currentUser.id == msg.sender.id>
         incoming
         <#else>
         outgoing

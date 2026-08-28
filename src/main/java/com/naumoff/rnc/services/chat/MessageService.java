@@ -44,4 +44,8 @@ public class MessageService {
                 chatMessage
         );
     }
+
+    public Long getCountUnreadMessages(UserEntity currentUser) {
+        return conversationMessageRepository.countAllUnreadMessages(currentUser);
+    }
 }

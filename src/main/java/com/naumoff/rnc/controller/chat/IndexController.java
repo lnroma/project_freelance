@@ -28,20 +28,17 @@ public class IndexController {
     private final MessageService messageService;
     private final ChatService chatService;
     private final UserRepository userRepository;
-    private final SaveMessageService saveMessageService;
 
     public IndexController(
             ConversationsService conversationsService,
             MessageService messageService,
             ChatService chatService,
-            UserRepository userRepository,
-            SaveMessageService saveMessageService
+            UserRepository userRepository
     ) {
         this.conversationsService = conversationsService;
         this.messageService = messageService;
         this.chatService = chatService;
         this.userRepository = userRepository;
-        this.saveMessageService = saveMessageService;
     }
 
     @GetMapping("/user/chat/{id}")
@@ -54,15 +51,14 @@ public class IndexController {
     ) {
         UserEntity currentUser = authUser.getEntity();
         Conversation conversation = conversationsService.createConversationForSelfMessages(currentUser);
-        messageService.sendMessageMySelf(conversation, currentUser);
 
         Conversation currentConversation = conversationsService.getConversationById(id);
 
         UserEntity recipientUser;
-        if (currentConversation.getUserFrom().equals(currentUser.getId())) {
-            recipientUser = userRepository.findById(currentConversation.getUserTo()).get();
+        if (currentConversation.getUserFromEntity().equals(currentUser)) {
+            recipientUser = currentConversation.getUserToEntity();
         } else {
-            recipientUser = userRepository.findById(currentConversation.getUserFrom()).get();
+            recipientUser = currentConversation.getUserFromEntity();
         }
 
         model.addAttribute("userTo", recipientUser);
@@ -74,7 +70,7 @@ public class IndexController {
         model.addAttribute("messages", messages);
         model.addAttribute("conversations", chatService.getLastChats(currentUser));
 
-        conversationsService.setIsReadAllMessagesInConversation(currentConversation);
+        conversationsService.setIsReadAllMessagesInConversation(currentConversation, authUser.getEntity());
 
         return "user/chat/index";
     }
@@ -105,7 +101,7 @@ public class IndexController {
         UserEntity userFrom = authUser.getEntity();
         UserEntity userTo = userRepository.findById(id).get();
 
-        Conversation conversation = conversationsService.createConversation(userFrom.getId(), userTo.getId());
+        Conversation conversation = conversationsService.createConversation(userFrom, userTo);
 
         return "redirect:/user/chat/" + conversation.getId();
     }

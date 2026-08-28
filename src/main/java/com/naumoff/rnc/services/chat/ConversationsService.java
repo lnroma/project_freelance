@@ -6,8 +6,10 @@ import com.naumoff.rnc.database.repository.chat.ConversationMessageRepository;
 import com.naumoff.rnc.database.repository.chat.ConversationRepository;
 import com.naumoff.rnc.dto.chat.ChatMessage;
 import com.naumoff.rnc.services.users.UserService;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,9 +31,9 @@ public class ConversationsService {
     }
 
     public List<Conversation> getAllConversations(UserEntity user) {
-        return this.conversationRepository.findByUserFromOrUserToAndDeletedAtIsNullOrderByCreatedAtDesc(
-                user.getId(),
-                user.getId()
+        return this.conversationRepository.findByUserFromEntityOrUserToEntityAndDeletedAtIsNullOrderByOrderWidthDesc(
+                user,
+                user
         );
     }
 
@@ -42,7 +44,7 @@ public class ConversationsService {
      * @param userTo user to
      * @return conversation instance
      */
-    public Conversation getConversationForRecipient(Long userFrom, Long userTo) {
+    public Conversation getConversationForRecipient(UserEntity userFrom, UserEntity userTo) {
         return this.conversationRepository.findConversationBetweenUsers(userFrom, userTo).orElse(null);
     }
 
@@ -63,12 +65,17 @@ public class ConversationsService {
      * @param userTo user to
      * @return conversation instance
      */
-    public Conversation createConversation(Long userFrom, Long userTo) {
+    public Conversation createConversation(UserEntity userFrom, UserEntity userTo) {
+        Conversation oldConv = getConversationForRecipient(userFrom, userTo);
+        if (oldConv != null) {
+            return oldConv;
+        }
+
         Conversation conversation = new Conversation();
 
         conversation.setCreatedAt(LocalDateTime.now());
-        conversation.setUserFrom(userFrom);
-        conversation.setUserTo(userTo);
+        conversation.setUserFromEntity(userFrom);
+        conversation.setUserToEntity(userTo);
 
         if (userFrom.equals(userTo)) {
             conversation.setOrderWidth(999L);
@@ -88,7 +95,7 @@ public class ConversationsService {
      * @param userTo user recipient
      * @return conversation
      */
-    public Conversation getConversationWithUserOrCreateNew(Long userFrom, Long userTo) {
+    public Conversation getConversationWithUserOrCreateNew(UserEntity userFrom, UserEntity userTo) {
         Conversation conversation = getConversationForRecipient(userFrom, userTo);
 
         if (conversation == null) {
@@ -99,19 +106,19 @@ public class ConversationsService {
     }
 
     public Conversation createConversationForSelfMessages(UserEntity currentUser) {
-        Conversation conversation = getConversationForRecipient(currentUser.getId(), currentUser.getId());
+        Conversation conversation = getConversationForRecipient(currentUser, currentUser);
         if (conversation != null) {
             return conversation;
         }
 
-        return createConversation(currentUser.getId(), currentUser.getId());
+        return createConversation(currentUser, currentUser);
     }
 
     public UserEntity getRecipient(UserEntity currentUser, Conversation currentConversation) {
-        if (currentUser.getId().equals(currentConversation.getUserFrom())) {
-            return userService.getUserById(currentConversation.getUserTo());
+        if (currentUser.equals(currentConversation.getUserFromEntity())) {
+            return currentConversation.getUserToEntity();
         } else {
-            return userService.getUserById(currentConversation.getUserFrom());
+            return currentConversation.getUserFromEntity();
         }
     }
 
@@ -122,8 +129,44 @@ public class ConversationsService {
         return conversation;
     }
 
-    public Conversation setIsReadAllMessagesInConversation(Conversation conversation) {
-        conversationMessageRepository.setIsReadMessagesByConversationId(conversation.getId());
+    public Conversation setIsReadAllMessagesInConversation(
+            Conversation conversation,
+            UserEntity currentUser
+    ) {
+        conversationMessageRepository.setIsReadMessagesByConversationId(conversation, currentUser);
+
+        return conversation;
+    }
+
+    public Conversation upConversation(Conversation conversation) {
+        Long currentWidth = conversation.getOrderWidth();
+        currentWidth++;
+        conversation.setOrderWidth(currentWidth);
+
+        conversationRepository.save(conversation);
+
+        return conversation;
+    }
+
+    public Conversation downConversation(Conversation conversation) {
+        Long currentWidth = conversation.getOrderWidth();
+
+        if (currentWidth.equals(0L)) {
+            return conversation;
+        }
+
+        if (currentWidth < 0L) {
+            conversation.setOrderWidth(0L);
+        }
+
+        currentWidth--;
+        conversation.setOrderWidth(currentWidth);
+
+        return conversation;
+    }
+
+    public Conversation resetConversationWidth(Conversation conversation) {
+        conversation.setOrderWidth(0L);
 
         return conversation;
     }
