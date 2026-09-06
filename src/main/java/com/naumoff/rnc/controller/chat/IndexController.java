@@ -5,11 +5,13 @@ import com.naumoff.rnc.database.entities.chat.ConversationMessage;
 import com.naumoff.rnc.database.entities.users.UserEntity;
 import com.naumoff.rnc.database.repository.users.UserRepository;
 import com.naumoff.rnc.dto.chat.ChatMessage;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.model.AuthenticatedUser;
 import com.naumoff.rnc.services.chat.ChatService;
 import com.naumoff.rnc.services.chat.ConversationsService;
 import com.naumoff.rnc.services.chat.MessageService;
 import com.naumoff.rnc.services.chat.SaveMessageService;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,20 @@ public class IndexController {
     private final MessageService messageService;
     private final ChatService chatService;
     private final UserRepository userRepository;
+    private final MainMenuService mainMenuService;
 
     public IndexController(
             ConversationsService conversationsService,
             MessageService messageService,
             ChatService chatService,
-            UserRepository userRepository
+            UserRepository userRepository,
+            MainMenuService mainMenuService
     ) {
         this.conversationsService = conversationsService;
         this.messageService = messageService;
         this.chatService = chatService;
         this.userRepository = userRepository;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/user/chat/{id}")
@@ -70,7 +75,12 @@ public class IndexController {
         model.addAttribute("messages", messages);
         model.addAttribute("conversations", chatService.getLastChats(currentUser));
 
+        model.addAttribute("isFavorite", false);
+
         conversationsService.setIsReadAllMessagesInConversation(currentConversation, authUser.getEntity());
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "user/chat/index";
     }

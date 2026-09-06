@@ -5,7 +5,9 @@ import com.naumoff.rnc.database.entities.order.OrderEntity;
 import com.naumoff.rnc.database.entities.order.ResponseEntity;
 import com.naumoff.rnc.database.entities.users.UserEntity;
 import com.naumoff.rnc.database.entities.users.UserProfileEntity;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.order.OrderCounterService;
 import com.naumoff.rnc.services.order.OrderService;
 import com.naumoff.rnc.services.users.UserProfileService;
@@ -23,17 +25,20 @@ public class PreViewOrderController {
     final private UserProfileService userProfileService;
     final private BreadcrumbsService breadcrumbsService;
     final private OrderCounterService orderCounterService;
+    final private MainMenuService mainMenuService;
 
     public PreViewOrderController(
             OrderService orderService,
             UserProfileService userProfileService,
             BreadcrumbsService breadcrumbsService,
-            OrderCounterService orderCounterService
+            OrderCounterService orderCounterService,
+            MainMenuService mainMenuService
     ) {
         this.orderService = orderService;
         this.userProfileService = userProfileService;
         this.breadcrumbsService = breadcrumbsService;
         this.orderCounterService = orderCounterService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/catalog/order/{id}/preview")
@@ -61,6 +66,9 @@ public class PreViewOrderController {
         breadcrumbsService.assignBreadcrumbsToModel(breadcrumbsService.BR_ORDER_PREVIEW, model);
 
         orderCounterService.incrementViewed(orderEntity);
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "catalog/orders/preview"; // Возвращает index.html из templates/
     }

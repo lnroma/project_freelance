@@ -25,5 +25,5 @@ public class UserDto {
     @DecimalMin(value = "0.0", message = "Ставка часа должна быть больше 0")
     private BigDecimal costPerMonth;
 
-    private Integer cityId;
+    private Long cityId;
 }

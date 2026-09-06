@@ -115,7 +115,7 @@ public class ConversationsService {
     }
 
     public UserEntity getRecipient(UserEntity currentUser, Conversation currentConversation) {
-        if (currentUser.equals(currentConversation.getUserFromEntity())) {
+        if (currentUser.getId().equals(currentConversation.getUserFromEntity().getId())) {
             return currentConversation.getUserToEntity();
         } else {
             return currentConversation.getUserFromEntity();
@@ -163,6 +163,28 @@ public class ConversationsService {
         conversation.setOrderWidth(currentWidth);
 
         return conversation;
+    }
+
+    /**
+     * Check conversation ownered by current user
+     *
+     * @param currentUser Current user entity
+     * @param currentConversation current conversation entity
+     * @return boolean true if conversation ownered by user
+     */
+    public boolean checkConversationIsUser(
+            UserEntity currentUser,
+            Conversation currentConversation
+    ) {
+        if (currentConversation.getUserToEntity().getId().equals(currentUser.getId())) {
+            return true;
+        }
+
+        if (currentConversation.getUserFromEntity().getId().equals(currentUser.getId())) {
+            return true;
+        }
+
+        return false;
     }
 
     public Conversation resetConversationWidth(Conversation conversation) {

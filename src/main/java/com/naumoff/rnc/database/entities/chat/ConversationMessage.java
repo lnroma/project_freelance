@@ -32,8 +32,14 @@ public class ConversationMessage {
     @Column(name = "is_read")
     private Boolean isRead;
 
+    @Column(name = "is_favorite")
+    private Boolean isFavorite;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "favorited_at", nullable = true)
+    private LocalDateTime favoritedAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

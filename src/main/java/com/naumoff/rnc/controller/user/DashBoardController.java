@@ -2,10 +2,12 @@ package com.naumoff.rnc.controller.user;
 
 import com.naumoff.rnc.database.entities.order.OrderEntity;
 import com.naumoff.rnc.database.entities.users.UserEntity;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.dto.users.DashboardStats;
 import com.naumoff.rnc.model.Activity;
 import com.naumoff.rnc.model.AuthenticatedUser;
 import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.pages.SeoPagesService;
 import com.naumoff.rnc.services.users.UserCheckHasProfile;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,13 +23,16 @@ public class DashBoardController {
 
     final private UserCheckHasProfile userCheckHasProfile;
     final private BreadcrumbsService breadcrumbsService;
+    final private MainMenuService mainMenuService;
 
     public DashBoardController(
             UserCheckHasProfile userCheckHasProfile,
-            BreadcrumbsService breadcrumbsService
+            BreadcrumbsService breadcrumbsService,
+            MainMenuService mainMenuService
     ) {
         this.userCheckHasProfile = userCheckHasProfile;
         this.breadcrumbsService = breadcrumbsService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/dashboard")
@@ -72,6 +77,9 @@ public class DashBoardController {
                 breadcrumbsService.BR_DASHBOARD,
                 model
         );
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "user/dashboard";
     }

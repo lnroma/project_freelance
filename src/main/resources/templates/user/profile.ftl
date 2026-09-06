@@ -12,13 +12,16 @@
                                     <span class="text-muted">Активность пользователя: <strong>72%</strong></span>
                                 </div>
                             </div>
-
-
     <#include "../fragments/breadcrumbs.ftl">
     <div class="row">
         <!-- Левая колонка: Статистика и Инфо -->
         <div class="col-md-3 mb-4">
             <div class="bg-white p-3 rounded shadow-sm">
+                <h5>Аватар пользователя</h5>
+                <p>
+                    <img src="/assets/img/avatar.jpeg" style="height: 16.5rem" class="rounded-circle" />
+                    <a href="/profile/avatar/change" class="btn btn-primary mt-3">Сменить аватар</a>
+                </p>
                 <h5 class="border-bottom pb-2">О себе</h5>
                 <p>${currentUser.bio!'Нет информации о себе'}</p>
 
@@ -31,11 +34,20 @@
                     <div class="stats-box">
                         <h4 class="fw-bold">12</h4> <!-- Можно добавить счетчик подписчиков -->
                         <small>Подписчиков</small>
+                        <#if currentUser.id != authUser.getEntity().id >
+                            <a href="/user/profile/add/favorite" class="btn btn-primary">Подписаться</a>
+                        </#if>
                     </div>
                     <div class="stats-box">
                         <h4 class="fw-bold">8</h4>
                         <small>Подписок</small>
+                        <#if currentUser.id == authUser.getEntity().id >
+                            <a href="/user/profile/my/favorites" class="btn btn-primary">Мои подписчики</a>
+                        </#if>
                     </div>
+                </div>
+                <div class="d-flex mt-3">
+                    <a href="/user/profile/add" class="btn btn-primary">Редактировать профиль</a>
                 </div>
             </div>
         </div>

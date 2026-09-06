@@ -33,6 +33,14 @@
 <!--    <include file="0027-add-is-read-to-message.xml" relativeToChangelogFile="true" />-->
     <include file="0028-add-field-to-conversation-order-width.xml" relativeToChangelogFile="true" />
     <include file="0029-feel-table-seo-pages.xml" relativeToChangelogFile="true" />
+    <include file="0030-add-field-is-favorite-message.xml" relativeToChangelogFile="true" />
 
-    <!-- Здесь можно добавлять другие миграции -->
+    <include file="0032-create-main-application-menu.xml" relativeToChangelogFile="true"/>
+    <include file="0033-main-menu-feel.xml" relativeToChangelogFile="true"/>
+    <include file="0034-create-table-user-roles.xml" relativeToChangelogFile="true" />
+    <include file="0035-create-table-users-to-roles.xml" relativeToChangelogFile="true" />
+    <include file="0036-create-table-access-list.xml" relativeToChangelogFile="true" />
+
+    <include file="0037-user-role-feel.xml" relativeToChangelogFile="true" />
+    <include file="0038-user-role-access-list-feel.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>

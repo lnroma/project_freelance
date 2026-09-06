@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2>Каталог заказов</h2>
                         <div>
-                            <span class="text-muted">Найдено заказов: <strong>${orderCount}</strong></span>
+                            <span class="text-muted">Найдено заказов: <strong>${catalogPage.orderCounts}</strong></span>
                         </div>
                     </div>
     <#include "../fragments/breadcrumbs.ftl">
@@ -30,25 +30,28 @@
                 <!-- Список заказов -->
                 <div id="ordersList">
                     <!-- Заказ 1 -->
-                    <#list orders as order>
+                    <#list catalogPage.orders as order>
                     <div class="order-card">
                         <div class="d-flex justify-content-between align-items-start row">
                             <div class="col-md-9 right-border">
                                 <h5>${order.title}</h5>
                                 <p class="text-muted mb-2">${order.description}</p>
                                 <div class="d-flex gap-3 mb-2">
-                                    <span class="badge bg-primary">${order.category.name}</span>
-                                    <span class="badge bg-secondary">${order.city.cityName}</span>
+                                    <span class="badge bg-primary">${order.category}</span>
+                                    <span class="badge bg-secondary">${order.city}</span>
                                 </div>
                                 <div class="d-flex gap-3 mb-2">
                                     <h6 class="text-primary">от ${order.priceFrom} до ${order.priceTo} руб.</h6>
+                                </div>
+                                <div class="d-flex gap-3 mb-2">
+                                    <p style="color: gray">${order.createdAtDate} ${order.createdAtTime}</p>
                                 </div>
                             </div>
                             <div class="col-md-3">
 <#--                                <h4 class="text-primary mb-1">от ${order.priceFrom} до ${order.priceTo} руб.</h4>-->
                                 <img src="/assets/img/avatar.jpeg" alt="avatar"
                                      class="rounded-circle" width="36" height="36" style="object-fit: cover;">
-                                Иванов Иван
+                                ${order.author.firstName} ${order.author.lastName}
                                 <div class="d-flex gap-3 mt-2">
                                     Рейтинг: 4.8
                                 </div>

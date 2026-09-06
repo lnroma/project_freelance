@@ -2,6 +2,8 @@ package com.naumoff.rnc.controller.messaging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.naumoff.rnc.dto.debug.NotificationPayload;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.core.MessagePostProcessor;
@@ -26,14 +28,17 @@ public class NotificationController {
 
     private final SimpUserRegistry simpUserRegistry;
     private final SimpMessagingTemplate messagingTemplate;
+    private final MainMenuService mainMenuService;
     private String destinationPrefix = "/user/";
 
     public NotificationController(
             SimpMessagingTemplate messagingTemplate,
-            SimpUserRegistry userRegistry
+            SimpUserRegistry userRegistry,
+            MainMenuService mainMenuService
     ) {
         this.messagingTemplate = messagingTemplate;
         this.simpUserRegistry = userRegistry;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/test/message")
@@ -54,6 +59,9 @@ public class NotificationController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+//        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+//        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "user/login";
     }

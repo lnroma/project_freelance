@@ -4,6 +4,7 @@ import com.naumoff.rnc.database.entities.users.UserEntity;
 import com.naumoff.rnc.database.entities.users.UserProfileEntity;
 import com.naumoff.rnc.database.repository.users.profile.UserProfileRepository;
 import com.naumoff.rnc.dto.users.ProfileForm;
+import kotlin.jvm.optionals.OptionalsKt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,11 +48,11 @@ public class UserProfileService {
      * Get current user profile
      *
      * @param user current user or user with profile
-     * @returnt user profile entity
+     * @returnt user profile entity or null if user profile not exist
      */
     public UserProfileEntity getCurrentUserProfile(
             UserEntity user
     ) {
-        return user.getProfiles().stream().findFirst().get();
+        return OptionalsKt.getOrNull(user.getProfiles().stream().findFirst());
     }
 }

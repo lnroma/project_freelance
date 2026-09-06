@@ -4,14 +4,17 @@ import com.naumoff.rnc.database.entities.post.PostEntity;
 import com.naumoff.rnc.database.entities.users.UserEntity;
 import com.naumoff.rnc.database.entities.users.UserProfileEntity;
 import com.naumoff.rnc.database.repository.users.UserRepository;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.dto.users.ProfileForm;
 import com.naumoff.rnc.dto.users.history.UserHistoryInterface;
 import com.naumoff.rnc.model.AuthenticatedUser;
 import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
 import com.naumoff.rnc.services.cities.CityService;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.post.PostService;
 import com.naumoff.rnc.services.users.UserHistoryService;
 import com.naumoff.rnc.services.users.UserProfileService;
+import com.naumoff.rnc.services.users.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,8 @@ public class ProfileController {
     private final CityService cityService;
     private final UserProfileService userProfileService;
     private final UserHistoryService userHistoryService;
+    private final UserService userService;
+    private final MainMenuService mainMenuService;
 
     public ProfileController(
             PostService postService,
@@ -43,7 +48,9 @@ public class ProfileController {
             BreadcrumbsService breadcrumbsService,
             CityService cityService,
             UserProfileService userProfileService,
-            UserHistoryService userHistoryService
+            UserHistoryService userHistoryService,
+            UserService userService,
+            MainMenuService mainMenuService
     ) {
         this.postService = postService;
         this.userRepository = userRepository;
@@ -51,6 +58,8 @@ public class ProfileController {
         this.cityService = cityService;
         this.userProfileService = userProfileService;
         this.userHistoryService = userHistoryService;
+        this.userService = userService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/profile")
@@ -73,6 +82,9 @@ public class ProfileController {
         Page<PostEntity> postEntityPage = postService.getUserPosts(currentUser, pageable);
         model.addAttribute("posts", postEntityPage.getContent());
         model.addAttribute("page", postEntityPage);
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         breadcrumbsService.assignBreadcrumbsToModel(
                 breadcrumbsService.BR_PROFILE,
@@ -99,6 +111,11 @@ public class ProfileController {
         model.addAttribute("errors", new HashMap<String, String>());                // Map<String, String> ошибок валидации
         model.addAttribute("todayDate", LocalDate.now().toString()); // для max в date
 
+        model.addAttribute("currentProfile", userProfileService.getCurrentUserProfile(userService.getUserById(currentUser.getId())));
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
+
         return "user/profile/add";
     }
 
@@ -120,6 +137,9 @@ public class ProfileController {
                 UserHistoryInterface.OBJECT_TYPE_PROFILE,
                 userProfileEntity.getId()
         );
+
+        // save city
+        userService.changeCity(currentUser, profileForm.getCityId());
 
         return "redirect:/profile";
     }
@@ -148,6 +168,9 @@ public class ProfileController {
                 breadcrumbsService.BR_PROFILE,
                 model
         );
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "user/profile";
     }

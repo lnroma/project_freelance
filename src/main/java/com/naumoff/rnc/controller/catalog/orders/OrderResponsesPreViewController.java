@@ -2,7 +2,9 @@ package com.naumoff.rnc.controller.catalog.orders;
 
 import com.naumoff.rnc.database.entities.order.OrderEntity;
 import com.naumoff.rnc.database.entities.users.UserEntity;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.model.AuthenticatedUser;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.order.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class OrderResponsesPreViewController {
 
     private final OrderService orderService;
+    private final MainMenuService mainMenuService;
 
     private OrderResponsesPreViewController(
-            OrderService orderService
+            OrderService orderService,
+            MainMenuService mainMenuService
     ) {
         this.orderService = orderService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping(value = "/catalog/order/{id}/preview/offers")
@@ -39,6 +44,9 @@ public class OrderResponsesPreViewController {
 
         UserEntity userEntity = authUser.getEntity();
         model.addAttribute("currentUser", userEntity);
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "/catalog/orders/preview/responses";
     }

@@ -255,6 +255,12 @@ body {
     font-size: 0.825rem;
 }
 
+.order-table {
+    border-radius: 0.5rem;
+    box-shadow: none;
+    border: 1px solid #e9ecef;
+}
+
 /* Адаптив: на мобильных уменьшаем отступы */
 @media (max-width: 768px) {
     .dashboard-card {

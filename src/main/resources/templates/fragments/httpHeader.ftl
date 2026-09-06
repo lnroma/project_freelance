@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/main.css">
 
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon32.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<#--    <link rel="shortcut icon" href="/favicon.ico">-->
+
     <style>
         body {
             background-color: #f4f6f9;

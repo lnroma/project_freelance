@@ -1,9 +1,11 @@
 package com.naumoff.rnc.controller.catalog.orders;
 
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.dto.order.CreateOrderDto;
 import com.naumoff.rnc.model.AuthenticatedUser;
 import com.naumoff.rnc.services.breadcrumbs.BreadcrumbsService;
 import com.naumoff.rnc.services.cities.CityService;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.order.CategoryService;
 import com.naumoff.rnc.services.order.OrderService;
 import jakarta.validation.Valid;
@@ -23,17 +25,20 @@ public class CreateOrderController {
     private final OrderService orderService;
     private final CategoryService categoryService;
     private final CityService cityService;
+    private final MainMenuService mainMenuService;
 
     public CreateOrderController(
             BreadcrumbsService breadcrumbsService,
             OrderService orderService,
             CategoryService categoryService,
-            CityService cityService
+            CityService cityService,
+            MainMenuService mainMenuService
     ) {
         this.breadcrumbsService = breadcrumbsService;
         this.orderService = orderService;
         this.categoryService = categoryService;
         this.cityService = cityService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/catalog/order/create")
@@ -44,15 +49,13 @@ public class CreateOrderController {
         model.addAttribute("cities", this.cityService.getAllAvailableCity());
         model.addAttribute("orderCategories", this.categoryService.getAllCategoryList());
 
-        System.out.println("category logging");
-        this.categoryService.getAllCategoryList().forEach(cat -> {
-            System.out.println("category " + cat.getName());
-        });
-
         breadcrumbsService.assignBreadcrumbsToModel(
                 breadcrumbsService.BR_ORDER_CREATE,
                 model
         );
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
 
         return "catalog/orders/create"; // Возвращает index.html из templates/
     }

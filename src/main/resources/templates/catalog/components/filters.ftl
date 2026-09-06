@@ -10,19 +10,19 @@
                 Цена заказа
             </h5>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="0-5000" id="price1" <#if prices?? && prices?seqContains("0-5000")> checked="true" </#if>>
+                <input class="form-check-input" type="checkbox" value="0-5000" id="price1" <#if catalogPage.prices?? && catalogPage.prices?seqContains("0-5000")> checked="true" </#if>>
                 <label class="form-check-label" for="price1">Меньше 5 000 руб.</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="5000-15000" id="price2" <#if prices?? && prices?seqContains("5000-15000")> checked="true" </#if>>
+                <input class="form-check-input" type="checkbox" value="5000-15000" id="price2" <#if catalogPage.prices?? && catalogPage.prices?seqContains("5000-15000")> checked="true" </#if>>
                 <label class="form-check-label" for="price2">5 000–15 000 руб.</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="15000-50000" id="price3" <#if prices?? && prices?seqContains("15000-50000")> checked="true" </#if>>
+                <input class="form-check-input" type="checkbox" value="15000-50000" id="price3" <#if catalogPage.prices?? && catalogPage.prices?seqContains("15000-50000")> checked="true" </#if>>
                 <label class="form-check-label" for="price3">15 000–50 000 руб.</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="50000-10000000" id="price4" <#if prices?? && prices?seqContains("50000-10000000")> checked="true" </#if>>
+                <input class="form-check-input" type="checkbox" value="50000-10000000" id="price4" <#if catalogPage.prices?? && catalogPage.prices?seqContains("50000-10000000")> checked="true" </#if>>
                 <label class="form-check-label" for="price4">50 000 руб. и выше</label>
             </div>
         </div>
@@ -49,14 +49,14 @@
             </div>
 
             <div class="filter-content">
-                <#if categories?? >
-                    <#list categories as category>
+                <#if catalogPage.categories?? >
+                    <#list catalogPage.categories as category>
                         <!-- Убрали px-3 у form-check, сделали отступ у label -->
                         <div class="form-check">
                             <input class="form-check-input category-checkbox" type="checkbox"
                                    value="${category.id}" name="category_ids"
                                    id="category_id_${category.id}"
-                                    <#if categoryIds?? && categoryIds?seqContains(category.id)> checked="true" </#if>>
+                                    <#if catalogPage.categoryIds?? && catalogPage.categoryIds?seqContains(category.id)> checked="true" </#if>>
                             <label class="form-check-label ps-3" for="category_id_${category.id}">${category.name}</label>
                         </div>
                     </#list>
@@ -88,14 +88,14 @@
             </div>
 
             <div class="filter-content">
-                <#if cities?? >
-                    <#list cities as city>
+                <#if catalogPage.cities?? >
+                    <#list catalogPage.cities as city>
                         <!-- Отступ у label вместо form-check -->
                         <div class="form-check">
                             <input class="form-check-input city-checkbox" type="checkbox"
                                    value="${city.id}" name="city_ids"
                                    id="city_id_${city.id}"
-                                    <#if cityIds?? && cityIds?seqContains(city.id)> checked="true"</#if>>
+                                    <#if catalogPage.cityIds?? && catalogPage.cityIds?seqContains(city.id)> checked="true"</#if>>
                             <label class="form-check-label ps-3" for="city_id_${city.id}">
                                 ${city.cityName} (${city.region})
                             </label>

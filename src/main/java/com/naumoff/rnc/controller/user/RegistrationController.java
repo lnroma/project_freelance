@@ -1,7 +1,9 @@
 package com.naumoff.rnc.controller.user;
 
 import com.naumoff.rnc.database.entities.users.UserEntity;
+import com.naumoff.rnc.dto.menu.MenuCollectionDto;
 import com.naumoff.rnc.dto.users.UserDto;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.users.UserAuthenticationService;
 import com.naumoff.rnc.services.users.UserRegistrationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,19 +21,26 @@ public class RegistrationController {
 
     private final UserRegistrationService userRegistrationService;
     private final UserAuthenticationService userAuthenticationService;
+    private final MainMenuService mainMenuService;
 
     public RegistrationController(
             UserRegistrationService userRegistrationService,
-            UserAuthenticationService userAuthenticationService
+            UserAuthenticationService userAuthenticationService,
+            MainMenuService mainMenuService
     ) {
         this.userRegistrationService = userRegistrationService;
         this.userAuthenticationService = userAuthenticationService;
+        this.mainMenuService = mainMenuService;
     }
 
     @GetMapping("/registration")
     public String home(Model model) {
         model.addAttribute("title", "Регистрация");
         model.addAttribute("message", "Добро пожаловать в Spring Boot приложение!");
+
+        MenuCollectionDto menuCollectionDto = mainMenuService.getMenuCollectionDto();
+        mainMenuService.assignMenuToTemplate(model, menuCollectionDto);
+
         return "user/registration"; // Возвращает index.html из templates/
     }
 

@@ -18,4 +18,12 @@ public class UserService {
     public UserEntity getUserById(Long userId) {
         return userRepository.findById(userId).get();
     }
+
+    public UserEntity changeCity(UserEntity currentUser, Long cityId) {
+        currentUser.setCityId(cityId);
+
+        userRepository.save(currentUser);
+
+        return currentUser;
+    }
 }

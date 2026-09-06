@@ -81,6 +81,7 @@ public class SendMessageToConversationService {
         model.put("messages", messages);
         model.put("currentUser", currentUser);
         model.put("userTo", recipientUser);
+        model.put("isFavorite", false);
 
         String html = "";
         try {

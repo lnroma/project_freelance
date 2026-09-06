@@ -24,6 +24,12 @@
         overflow: hidden;
     }
 
+    .conversation-container {
+        overflow: scroll;
+        display: flex;
+        height: calc(100vh);
+    }
+
     /* Левая панель: список чатов */
     .chat-sidebar {
         width: 320px;
@@ -181,25 +187,22 @@
                 <span class="fw-bold">Недавние чаты</span>
                 <i class="fas fa-ellipsis-v text-muted"></i>
             </div>
-
-            <div class="js-conversation-container" id="conversationContainer">
-                <#include "components/conversation.ftl">
+            <div class="conversation-container">
+                <div class="js-conversation-container" id="conversationContainer">
+                    <#include "components/conversation.ftl">
+                </div>
             </div>
         </aside>
 
         <main class="chat-area">
-            <ul class="nav nav-tabs mb-3" id="chatTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="all-messages-tab" data-bs-toggle="tab"
-                            data-bs-target="#all-messages" type="button" role="tab">Все сообщения
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="favorites-tab" data-bs-toggle="tab"
-                            data-bs-target="#favorites" type="button" role="tab">Избранное
-                    </button>
-                </li>
-            </ul>
+            <div class="nav-content p-2" style="background: #79a6c766">
+                <a href="/user/chat/${currentConversation.id}" class="active btn btn-outline-primary disabled">
+                    Все сообщения
+                </a>
+                <a href="/user/chat/${currentConversation.id}/favorites" class="btn btn-outline-primary ml-2">
+                    Избранные
+                </a>
+            </div>
             <div class="tab-content" id="chatTabsContent">
                 <div class="tab-pane fade show active" id="all-messages" style="background-color: #a5d6a8"
                      role="tabpanel">

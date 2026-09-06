@@ -3,10 +3,12 @@ package com.naumoff.rnc.services.chat;
 import com.naumoff.rnc.database.entities.chat.Conversation;
 import com.naumoff.rnc.database.entities.chat.ConversationMessage;
 import com.naumoff.rnc.database.entities.users.UserEntity;
+import com.naumoff.rnc.database.entities.users.UserProfileEntity;
 import com.naumoff.rnc.database.repository.chat.ConversationMessageRepository;
 import com.naumoff.rnc.database.repository.chat.ConversationRepository;
 import com.naumoff.rnc.database.repository.users.UserRepository;
 import com.naumoff.rnc.dto.chat.ChatDto;
+import com.naumoff.rnc.services.users.UserProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,16 +20,16 @@ public class ChatService {
 
     final private ConversationMessageRepository conversationMessageRepository;
     final private ConversationRepository conversationRepository;
-    final private UserRepository userRepository;
+    final private UserProfileService userProfileService;
 
     public ChatService(
             ConversationRepository conversationRepository,
             ConversationMessageRepository conversationMessageRepository,
-            UserRepository userRepository
+            UserProfileService userProfileService
     ) {
         this.conversationRepository = conversationRepository;
         this.conversationMessageRepository = conversationMessageRepository;
-        this.userRepository = userRepository;
+        this.userProfileService = userProfileService;
     }
 
 
@@ -46,7 +48,7 @@ public class ChatService {
         conversations.forEach(conversation -> {
             UserEntity recipientUser = conversation.getUserFromEntity();
 
-            if (recipientUser.equals(currentUser)) {
+            if (recipientUser.getId().equals(currentUser.getId())) {
                 recipientUser = conversation.getUserToEntity();
             }
 
@@ -59,9 +61,16 @@ public class ChatService {
                 lastMessage = convMessage.getMessage();
             }
 
+            UserProfileEntity userProfileEntity = userProfileService.getCurrentUserProfile(recipientUser);
+
+            String recipientName = "Пользователь с id: " + recipientUser.getId();
+            if (userProfileEntity != null) {
+                recipientName = userProfileEntity.getFirstName() + " " + userProfileEntity.getLastName();
+            }
+
             ChatDto chatDto = ChatDto.builder()
                     .isActive(false)
-                    .recipientName(recipientUser.getEmail())
+                    .recipientName(recipientName)
                     .lastMessage(lastMessage)
                     .conversationId(conversation.getId())
                     .recipientId(recipientUser.getId())

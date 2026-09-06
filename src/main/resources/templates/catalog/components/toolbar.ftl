@@ -3,26 +3,26 @@
 
                         <!-- ЛЕВАЯ ЧАСТЬ: Переключение вида (Список / Карточки / Таблица) -->
                         <div class="btn-group" role="group" aria-label="Переключение вида">
-                            <button type="button" class="btn btn-outline-primary btn-sm active"
-                                    data-view="list" onclick="setView('list')">
+                            <a type="button" class="btn btn-outline-primary btn-sm <#if catalogPage.toolBar.isCatalogListViewActive>active</#if>"
+                                    href="/catalog">
                                 <i class="bi bi-list-ul me-1"></i> Список
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                    data-view="cards" onclick="setView('cards')">
+                            </a>
+                            <a type="button" class="btn btn-outline-primary btn-sm <#if catalogPage.toolBar.isCatalogCardsViewActive>active</#if>"
+                                    href="/catalog/view/cards">
                                 <i class="bi bi-grid-fill me-1"></i> Карточки
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                    data-view="table" onclick="setView('table')">
+                            </a>
+                            <a type="button" class="btn btn-outline-primary btn-sm <#if catalogPage.toolBar.isCatalogTableViewActive>active</#if>"
+                                    href="/catalog/view/table">
                                 <i class="bi bi-table me-1"></i> Таблица
-                            </button>
+                            </a>
                         </div>
 
                         <!-- ЦЕНТР: Форма поиска -->
                         <form class="d-flex flex-grow-1 justify-content-center align-items-center gap-2" id="searchForm" onsubmit="performSearch(event)">
                             <div class="input-group input-group-sm w-100" style="max-width: 400px;">
-                                <input type="text" name="query" value="${currentQuery ! ""}" class="form-control" id="searchQuery" placeholder="Поиск по названию, описанию..." aria-label="Поиск">
+                                <input type="text" name="query" value="${catalogPage.currentQuery ! ""}" class="form-control" id="searchQuery" placeholder="Поиск по названию, описанию..." aria-label="Поиск">
                                 <input type="hidden" name="page" value="0" />
-                                <input type="hidden" name="size" value="${page.size}" />
+                                <input type="hidden" name="size" value="${catalogPage.page.size}" />
                                 <button type="submit" class="btn btn-primary" id="searchBtn">
                                     <i class="bi bi-search me-1"></i> Найти
                                 </button>

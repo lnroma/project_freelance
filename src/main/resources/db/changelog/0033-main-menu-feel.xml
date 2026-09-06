@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="main-menu-feel" author="user">
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="1"/>
+            <column name="menu_uri" value="/catalog"/>
+            <column name="menu_title" value="Заказы"/>
+            <column name="role" value="ALL" />
+            <column name="slug" value="catalog" />
+        </insert>
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="2"/>
+            <column name="menu_uri" value="/blog"/>
+            <column name="menu_title" value="Блог"/>
+            <column name="role" value="ALL" />
+            <column name="slug" value="blog" />
+        </insert>
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="3"/>
+            <column name="menu_uri" value="/dashboard"/>
+            <column name="menu_title" value="Дашбоард"/>
+            <column name="role" value="USER" />
+            <column name="slug" value="dashboard" />
+        </insert>
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="4"/>
+            <column name="menu_uri" value="/user/chat/"/>
+            <column name="menu_title" value="Сообщения"/>
+            <column name="role" value="USER" />
+            <column name="slug" value="chat" />
+        </insert>
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="5"/>
+            <column name="menu_uri" value="/settings"/>
+            <column name="menu_title" value="Настройки"/>
+            <column name="role" value="USER" />
+            <column name="slug" value="chat" />
+        </insert>
+        <insert tableName="main_menu_application">
+            <column name="order_width" value="6" />
+            <column name="menu_uri" value="/notifications" />
+            <column name="menu_title" value="Уведомления" />
+            <column name="role" value="USER" />
+            <column name="slug" value="notifications" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

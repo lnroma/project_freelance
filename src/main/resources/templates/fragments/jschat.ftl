@@ -110,9 +110,6 @@
 
                 console.log(recipientId + " this is a recipient id ");
                 localStorage.setItem("currentRecipientId", conversationId)
-                // или: const conversationId = this.dataset.conversationId;
-                document.querySelectorAll('.js-conversation-id').item(0)
-                    .setAttribute("data-conversation-id", conversationId);
 
                 // document.querySelector("#toId")
 
@@ -144,8 +141,8 @@
             localStorage.setItem("currentRecipientId", fId);
         }
 
-        cId = document.querySelectorAll('.js-conversation-id').item(0)
-            .getAttribute("data-conversation-id");
+        const cId = document.getElementById("currentConversationId").value;
+
         setTimeout(() => {
             console.log("Executed after 2 seconds");
             sendTriggerGetMessages(cId);

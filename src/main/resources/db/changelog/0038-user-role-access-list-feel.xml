@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="user-role-feel" author="user">
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="1" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="catalog"/>
+            <column name="access_level" value="READ" />
+        </insert>
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="1" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="blog"/>
+            <column name="access_level" value="READ" />
+        </insert>
+
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="2" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="dashboard"/>
+            <column name="access_level" value="READ" />
+        </insert>
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="2" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="settings"/>
+            <column name="access_level" value="READ" />
+        </insert>
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="2" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="chat"/>
+            <column name="access_level" value="READ" />
+        </insert>
+        <insert tableName="user_role_access_list">
+            <column name="role_id" value="2" />
+            <column name="object_type" value="main_menu_application"/>
+            <column name="object_key" value="notification"/>
+            <column name="access_level" value="READ" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

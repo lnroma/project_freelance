@@ -30,6 +30,26 @@ public class MessageService {
         );
     }
 
+    public List<ConversationMessage> getConversationMessagesIsFavorite(Conversation conversation) {
+        return conversationMessageRepository
+                .findByConversationIdAndIsFavoriteTrueOrderByFavoritedAtDesc(
+                        conversation.getId()
+                );
+    }
+
+    public ConversationMessage getMessageById(Long messageId) {
+        return conversationMessageRepository.findById(messageId).get();
+    }
+
+    public ConversationMessage markMessageIsFavorite(ConversationMessage message) {
+        message.setIsFavorite(true);
+        message.setFavoritedAt(LocalDateTime.now());
+
+        conversationMessageRepository.save(message);
+
+        return message;
+    }
+
     public void sendMessageMySelf(Conversation conversation, UserEntity currentUser) {
         ChatMessage chatMessage = ChatMessage.builder()
                 .conversationId(conversation.getId())

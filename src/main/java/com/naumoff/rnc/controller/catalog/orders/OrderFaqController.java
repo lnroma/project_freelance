@@ -5,6 +5,7 @@ import com.naumoff.rnc.database.entities.order.OrderFaqEntity;
 import com.naumoff.rnc.dto.order.OrderFaqDto;
 import com.naumoff.rnc.dto.users.history.UserHistoryInterface;
 import com.naumoff.rnc.model.AuthenticatedUser;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.order.OrderFaqService;
 import com.naumoff.rnc.services.order.OrderService;
 import com.naumoff.rnc.services.users.UserCountersService;
@@ -22,17 +23,20 @@ public class OrderFaqController {
     private final OrderService orderService;
     private final UserCountersService userCountersService;
     private final UserHistoryService userHistoryService;
+    private final MainMenuService mainMenuService;
 
     public OrderFaqController(
             OrderFaqService orderFaqService,
             OrderService orderService,
             UserCountersService userCountersService,
-            UserHistoryService userHistoryService
+            UserHistoryService userHistoryService,
+            MainMenuService mainMenuService
     ) {
         this.orderFaqService = orderFaqService;
         this.orderService = orderService;
         this.userCountersService = userCountersService;
         this.userHistoryService = userHistoryService;
+        this.mainMenuService = mainMenuService;
     }
 
     @PostMapping(value = "/catalog/order/{id}/ask/question")

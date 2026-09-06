@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="user-role-feel" author="user">
+        <insert tableName="user_role">
+            <column name="id" value="1" />
+            <column name="key" value="ALL"/>
+            <column name="title" value="Роль с доступом для всех"/>
+            <column name="description" value="Роль с доступом для всех"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="2" />
+            <column name="key" value="USER"/>
+            <column name="title" value="Авторизованный пользователь"/>
+            <column name="description" value="Авторизованный пользователь"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="3" />
+            <column name="key" value="ADMIN"/>
+            <column name="title" value="Администратор площадки"/>
+            <column name="description" value="Администратор площадки"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="4" />
+            <column name="key" value="MANAGER"/>
+            <column name="title" value="Менеджер площадки"/>
+            <column name="description" value="Менеджер площадки"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="5" />
+            <column name="key" value="MODERATOR"/>
+            <column name="title" value="Модератор площадки"/>
+            <column name="description" value="Модератор площадки"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="6" />
+            <column name="key" value="RESOURCE_OWNER"/>
+            <column name="title" value="Владелец ресурса"/>
+            <column name="description" value="Владелец ресурса"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

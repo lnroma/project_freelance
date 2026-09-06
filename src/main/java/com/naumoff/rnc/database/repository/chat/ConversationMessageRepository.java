@@ -23,11 +23,18 @@ public interface ConversationMessageRepository extends JpaRepository<Conversatio
             Long conversationId
     );
 
+    List<ConversationMessage> findByConversationIdAndIsFavoriteTrueOrderByFavoritedAtDesc(
+            @Param("conversationId")
+            Long conversationId
+    );
+
     Long conversation(Conversation conversation);
 
     @Modifying
     @Transactional
-    @Query("UPDATE ConversationMessage cm SET cm.isRead = true WHERE cm.conversation = :conversation and cm.sender != :currentUser")
+    @Query("UPDATE ConversationMessage cm SET cm.isRead = true WHERE " +
+            "cm.conversation = :conversation " +
+            "and cm.sender != :currentUser")
     void setIsReadMessagesByConversationId(
             @Param("conversation") Conversation conversation,
             @Param("currentUser") UserEntity currentUser
@@ -45,7 +52,7 @@ public interface ConversationMessageRepository extends JpaRepository<Conversatio
     @Query("SELECT COUNT(cm.id) FROM ConversationMessage cm " +
             "LEFT JOIN Conversation c ON c = cm.conversation WHERE " +
             " (c.userFromEntity = :currentUser OR c.userToEntity = :currentUser)" +
-            " AND cm.sender != :currentUser")
+            " AND cm.sender != :currentUser AND cm.isRead = false")
     Long countAllUnreadMessages(
             @Param("currentUser") UserEntity currentUser
     );

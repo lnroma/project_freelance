@@ -5,6 +5,7 @@ import com.naumoff.rnc.database.entities.order.ResponseEntity;
 import com.naumoff.rnc.dto.order.OrderResponseDto;
 import com.naumoff.rnc.dto.users.history.UserHistoryInterface;
 import com.naumoff.rnc.model.AuthenticatedUser;
+import com.naumoff.rnc.services.menu.MainMenuService;
 import com.naumoff.rnc.services.order.OrderResponseService;
 import com.naumoff.rnc.services.order.OrderService;
 import com.naumoff.rnc.services.users.UserHistoryService;
@@ -20,15 +21,18 @@ public class CreateOrderResponseController {
     private final OrderResponseService orderResponseService;
     private final OrderService orderService;
     private final UserHistoryService userHistoryService;
+    private final MainMenuService mainMenuService;
 
     public CreateOrderResponseController(
             OrderResponseService orderResponseService,
             OrderService orderService,
-            UserHistoryService userHistoryService
+            UserHistoryService userHistoryService,
+            MainMenuService mainMenuService
     ) {
         this.orderResponseService = orderResponseService;
         this.orderService = orderService;
         this.userHistoryService = userHistoryService;
+        this.mainMenuService = mainMenuService;
     }
 
     @PostMapping(value = "/catalog/order/{id}/response")
