@@ -52,16 +52,13 @@ public class OrderCounterService {
     public void incrementOffers(OrderEntity currentOrder) {
         OrderCountersEntity counters = currentOrder.getOrderCountersEntity();
         if (counters == null) {
-            return;
+            counters = new OrderCountersEntity();
+            counters.setOffers(0L);
+            counters.setOrder(currentOrder);
         }
 
-        Long current = counters.getOffers();
-
-        if (current == 0L) {
-            return;
-        }
-
-        current--;
+        Long current = counters.getViewed();
+        current++;
         counters.setOffers(current);
 
         this.orderCountersRepository.save(counters);
@@ -88,16 +85,13 @@ public class OrderCounterService {
     public void incrementQuestions(OrderEntity currentOrder) {
         OrderCountersEntity counters = currentOrder.getOrderCountersEntity();
         if (counters == null) {
-            return;
+            counters = new OrderCountersEntity();
+            counters.setQuestions(0L);
+            counters.setOrder(currentOrder);
         }
 
-        Long current = counters.getQuestions();
-
-        if (current == 0L) {
-            return;
-        }
-
-        current--;
+        Long current = counters.getViewed();
+        current++;
         counters.setQuestions(current);
 
         this.orderCountersRepository.save(counters);

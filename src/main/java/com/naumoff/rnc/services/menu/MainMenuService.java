@@ -27,7 +27,7 @@ public class MainMenuService {
     public void buildMenu() {
         List<MainMenuApplication> mainMenuApplicationList = mainMenuApplicationRepository.getAllMenus();
 
-        MenuCollectionDto menuCollectionDto = MenuCollectionDto.builder().build();
+        mainMenu = MenuCollectionDto.builder().build();
         Map<String, MenuItemDto> menuItemDtoMap = new HashMap<>();
 
 
@@ -42,7 +42,7 @@ public class MainMenuService {
             menuItemDtoMap.put(ma.getMenuUri(), mid);
         });
 
-        menuCollectionDto.setMenus(menuItemDtoMap);
+        mainMenu.setMenus(menuItemDtoMap);
     }
 
     public MenuCollectionDto getMenuCollectionDto() {

@@ -164,18 +164,15 @@ public class OrderService {
     ) {
         OrderEntity newOrder = new OrderEntity();
 
-//        newOrder.setAuthorUserId(createOrderDto.getAuthorUserId());
         newOrder.setCreator(currentUser);
 
         newOrder.setCategory(categoryRepository.findById(createOrderDto.getCategoryId()).get());
         newOrder.setCity(cityRepository.findById(createOrderDto.getCityId()).get());
-//        newOrder.setDeadlineAt(LocalDateTime.parse(createOrderDto.getDeadlineAt()));
         newOrder.setTitle(createOrderDto.getTitle());
         newOrder.setDescription(createOrderDto.getDescription());
         newOrder.setPriceFrom(createOrderDto.getPriceFrom().doubleValue());
         newOrder.setPriceTo(createOrderDto.getPriceTo().doubleValue());
         newOrder.setExecutor(currentUser);
-//        newOrder.setAuthorUserId(-1L);
         orderRepository.save(newOrder);
 
         return newOrder;
