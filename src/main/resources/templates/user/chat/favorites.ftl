@@ -207,6 +207,5 @@
     </div>
 </div>
 
-<#include "../../fragments/jschat.ftl">
 </body>
 </html>

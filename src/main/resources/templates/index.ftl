@@ -4,16 +4,20 @@
 <div></div>
 <body>
 <#include "fragments/header.ftl">
-
-<section class="mt-5 mb-5">
-    <div class="container">
-        <h2 class="text-center mb-5">Мы инновации</h2>
+<section class="mt-5 mb-5 row" style="background: #080838">
+    <img src="/img/1.jpeg" class="col-md-4" />
+    <img src="/img/2.jpeg" class="col-md-4" />
+    <img src="/img/3.jpeg" class="col-md-4" />
+</section>
+<section class="mt-5 mb-5 " style="background-image: url('/img/background.jpeg'); color: white">
+    <div class="container pt-3">
+        <h2 class="text-center mb-5 mt-5" style="font-weight: 1000">Мы инновации</h2>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4" style="background: #0f0f47; font-weight: 400">
                 Мы не просто фриланс площадка, мы целое сообщество профессиональных разработчиков. Мы не занимаемся фрилансом
                 мы работаем на вас.
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4" style="background: #0f0f47; font-weight: 400">
                 Процес достижения результата очень прост и максимально быстрый, ведь время деньги:
                 <ul>
                     <li>Пройдите простую <a href="/registration">регистрацию</a> состоящую из двух шагов</li>

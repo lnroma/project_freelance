@@ -46,6 +46,6 @@ public class MvcErrorHandler {
         System.out.println("!!! GlobalErrorHandler поймал исключение: " + ex.getClass().getName());
         model.addAttribute("errorMessage", "Ошибка перехвачена глобально: " + ex.getMessage());
         ex.printStackTrace();
-        return "error";
+        return "system/error";
     }
 }

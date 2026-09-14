@@ -31,6 +31,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+/**
+ * данный автоматический тест сгенерирован ИИ
+ */
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
 
@@ -177,7 +180,7 @@ class OrderServiceTest {
         try (MockedStatic<OrderSpecifications> mocked = mockStatic(OrderSpecifications.class)) {
             // Застабливаем статический метод: он должен вернуть наш мок spec
             mocked.when(() -> OrderSpecifications.buildSpecifications(
-                    "", null, null, null, null
+                    "", null, null, 0L, 500L
             )).thenReturn(spec);
 
             when(orderRepository.findAll(spec, pageable)).thenReturn(expectedPage);
@@ -193,7 +196,7 @@ class OrderServiceTest {
             // Мы не проверяем конкретные цифры, так как логика парсинга в сервисе спорная.
             // Главное — что метод вызван и переданы long.
             mocked.verify(() -> OrderSpecifications.buildSpecifications(
-                    "", null, null, null, null
+                    "", null, null, 0L, 500L
             ), times(1));
 
             verify(orderRepository).findAll(spec, pageable);

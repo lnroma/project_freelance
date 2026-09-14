@@ -18,10 +18,20 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon32.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <#--    <link rel="shortcut icon" href="/favicon.ico">-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <style>
         body {
             background-color: #f4f6f9;
+            font-family: "Nunito Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 650;
+            font-style: normal;
+            font-variation-settings:
+                    "wdth" 100,
+                    "YTLC" 500;
         }
 
         .dashboard-card {
@@ -99,7 +109,7 @@
                 border-radius: 15px;
                 border: 1px solid #8d822c;
                 padding: 20px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 transition: all 0.3s;
                 background: white;
             }

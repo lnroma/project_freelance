@@ -17,16 +17,13 @@ import java.util.List;
 public class ConversationsService {
 
     private final ConversationRepository conversationRepository;
-    private final UserService userService;
     private final ConversationMessageRepository conversationMessageRepository;
 
     public ConversationsService(
             ConversationRepository conversationRepository,
-            UserService userService,
             ConversationMessageRepository conversationMessageRepository
     ) {
         this.conversationRepository = conversationRepository;
-        this.userService = userService;
         this.conversationMessageRepository = conversationMessageRepository;
     }
 

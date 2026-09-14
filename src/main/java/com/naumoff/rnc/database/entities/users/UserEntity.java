@@ -56,6 +56,7 @@ public class UserEntity {
     private List<UserRoleEntity> roles = new ArrayList<>();
 //
     public UserCountersEntity getUserCountersEntity() { return null; }
+    public void setUserCountersEntity(UserCountersEntity userCountersEntity) {}
 //    @OneToOne(mappedBy = "user")
 //    private UserCountersEntity userCountersEntity;
 
